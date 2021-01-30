@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_150246) do
+ActiveRecord::Schema.define(version: 2021_01_30_150830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 2021_01_30_150246) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weblinks", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_weblinks_on_task_id"
+  end
+
   add_foreign_key "subjects", "teams"
   add_foreign_key "tasks", "subjects"
+  add_foreign_key "weblinks", "tasks"
 end
