@@ -10,7 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_223011) do
+ActiveRecord::Schema.define(version: 2021_01_30_151550) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "filename"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_attachments_on_task_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.bigint "team_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_subjects_on_team_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.datetime "duedate"
+    t.integer "worktype"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "subject_id", null: false
+    t.index ["subject_id"], name: "index_tasks_on_subject_id"
+  end
+
+  create_table "team_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+    t.boolean "is_admin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_tasks", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "user_id"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +76,17 @@ ActiveRecord::Schema.define(version: 2021_01_28_223011) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weblinks", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_weblinks_on_task_id"
+  end
+
+  add_foreign_key "attachments", "tasks"
+  add_foreign_key "subjects", "teams"
+  add_foreign_key "tasks", "subjects"
+  add_foreign_key "weblinks", "tasks"
 end
