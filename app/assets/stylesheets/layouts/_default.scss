@@ -24,8 +24,9 @@ body {
     background-color: $color-background;
 
     main {
+      flex: 1;
       padding: 1rem;
-      max-width: 80em;
+      max-width: 40rem;
       margin: 0 auto;
     }
   }
