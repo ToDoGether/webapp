@@ -2,8 +2,8 @@
   <main>
     <%= yield %>
   </main>
-    <%= render partial: "layouts/footer" %>
+  <aside>
+    <%= render partial: "layouts/menu" %>
+  </aside>
 </div>
-<aside class="show">
-  <%= render partial: "layouts/menu" %>
-</aside>
+<%= render partial: "layouts/footer" %>
