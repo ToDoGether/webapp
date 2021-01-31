@@ -30,15 +30,6 @@ class TeamsController < ApplicationController
     team_user.save
   end
 
-  def create_team_subject(team_id, subject_name)
-    team_subject = Subject.new
-
-    team_subject.team_id = team_id
-    team_subject.name = subject_name
-
-    team_subject.save
-  end
-
   # POST /teams or /teams.json
   def create
     @team = Team.new(team_params)
