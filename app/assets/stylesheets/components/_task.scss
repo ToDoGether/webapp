@@ -1,0 +1,41 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the task component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/_abstracts-dir";
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: stretch;
+
+    .content {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: $color-background-tasks;
+        font-family: $roboto;
+
+        .subject {
+            font-weight: bold;
+            color: brown; // Random Color
+            text-transform: uppercase;
+        }
+
+        .duedate {
+            font-weight: lighter;
+            font-style: italic;
+        }
+
+        .icons > img {
+            margin-right: 0.5rem;
+        }
+
+        .top,
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
