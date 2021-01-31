@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Subject</th>
       <th>Duedate</th>
       <th>Worktype</th>
       <th>Description</th>
@@ -17,6 +18,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
+        <td><%= task.subject_id %></td>
         <td><%= task.duedate %></td>
         <td><%= task.worktype %></td>
         <td><%= task.description %></td>
@@ -31,3 +33,7 @@
 <br>
 
 <%= link_to 'New Task', new_task_path %>
+<%= link_to "Teams", teams_path %>
+<% if user_signed_in? %>
+  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+<% end %>
