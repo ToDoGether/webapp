@@ -1,0 +1,60 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the menu component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/_abstracts-dir";
+
+.menu {
+    &.hide {
+        display: none;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-primary;
+    width: fit-content;
+    height: 100%;
+
+    h1 {
+        margin: 2rem;
+    }
+
+    nav {
+        align-self: stretch;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        ul {
+            align-self: stretch;
+            margin: 0;
+            text-indent: 0;
+            list-style-type: none;
+            padding-inline-start: 0;
+            li {
+                margin-top: 4px;
+
+                .btn {
+                    border: 0;
+                    border-radius: 0;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+                }
+            }
+        }
+    }
+}
+
+.menu-icon {
+    display: contents;
+
+    img {
+        height: 1.5rem;
+        margin: 1rem;
+    }
+
+    &.hide {
+        display: none;
+    }
+}

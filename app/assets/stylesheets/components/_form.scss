@@ -1,0 +1,28 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/_abstracts-dir";
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    * {
+        margin-top: 1rem;
+    }
+
+    input {
+        padding: 1rem;
+        font-family: $roboto;
+
+        &[type="checkbox"] {
+            width: inherit;
+        }
+    }
+
+    .label-checkbox {
+        font-size: 1rem;
+    }
+}

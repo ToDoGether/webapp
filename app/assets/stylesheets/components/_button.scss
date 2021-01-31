@@ -1,0 +1,101 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/_abstracts-dir";
+
+.btn {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.5em 1em;
+  border: 4px solid $color-background-button;
+  border-radius: 8px;
+  background-color: $color-background-button;
+  cursor: pointer;
+  color: white;
+  line-height: 1;
+  font-size: 1.5rem;
+  font-family: $robotocondensed;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+
+  &.hoverable {
+    &:hover,
+    &:focus {
+      background: $color-white;
+      color: $color-background-button;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
+  }
+
+  &.filter {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 100%;
+    padding: 0;
+    background-image: url("../../images/icons/icon-filter.svg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &.state {
+    text-transform: uppercase;
+    $height: 2em;
+    height: $height;
+    border-radius: $height / 2;
+    font-family: $roboto;
+    font-size: 1rem;
+    border: 0;
+  }
+
+  &.slide {
+    min-width: 20px;
+    max-width: 32px;
+    width: 4vw;
+    min-height: 80px;
+    background-color: $color-background;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &.left {
+      background-image: url("icons/icon-arrow-left.svg");
+    }
+    &.right {
+      background-image: url("icons/icon-arrow-right.svg");
+    }
+  }
+
+  &.todo {
+    background-color: $color-state-todo;
+  }
+  &.doing {
+    background-color: $color-state-doing;
+  }
+  &.done {
+    background-color: $color-state-done;
+  }
+  &.nostate {
+    background-color: $color-background;
+    pointer-events: none;
+  }
+}
+
+a.btn.block {
+  width: auto;
+}
