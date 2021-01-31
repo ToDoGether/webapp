@@ -1,9 +1,9 @@
-<main>
-  <div class="container">
-    <div class="content">
-      <%= yield %>
-    </div>
-    <%= render partial: "layouts/bottom" %>
-    <%= render partial: "layouts/menu" %>
-  </div>
-</main>
+<div class="content">
+  <main>
+    <%= yield %>
+  </main>
+    <%= render partial: "layouts/footer" %>
+</div>
+<aside class="show">
+  <%= render partial: "layouts/menu" %>
+</aside>

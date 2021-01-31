@@ -1,10 +1,52 @@
 @import "../abstracts/_abstracts-dir";
 
+html,
 body {
-  max-width: 800px;
+  height: 100%;
+}
+
+body {
   margin: 0 auto;
   font-family: $robotocondensed;
   font-size: 16px;
   line-height: 1.6;
   color: $color-black;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    background-color: $color-background;
+
+    main {
+      height: 100%;
+    }
+
+    footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $color-primary;
+
+      h4 {
+        margin: 0 1rem;
+      }
+    }
+  }
+
+  aside {
+    display: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    &.show {
+      display: inherit;
+    }
+  }
 }
