@@ -12,10 +12,13 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    2.times { @team.subjects.build }
   end
 
   # GET /teams/1/edit
-  def edit; end
+  def edit
+    @subjects = Subject.all
+  end
 
   def create_team_user(team_id, user_id, is_admin)
     team_user = TeamUser.new
@@ -25,6 +28,15 @@ class TeamsController < ApplicationController
     team_user.is_admin = is_admin
 
     team_user.save
+  end
+
+  def create_team_subject(team_id, subject_name)
+    team_subject = Subject.new
+
+    team_subject.team_id = team_id
+    team_subject.name = subject_name
+
+    team_subject.save
   end
 
   # POST /teams or /teams.json
@@ -48,7 +60,7 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+        format.html { redirect_to @team, notice: "Team was successfully updated. #{team_params}" }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -75,6 +87,6 @@ class TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, subjects_attributes: [:id, :name])
   end
 end
