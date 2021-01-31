@@ -2,14 +2,27 @@
   <h1 class="bgblue">ToDoGether</h1>
   <nav>
     <ul>
-      <li><button class="btn hoverable block">Menu Item 1</button></li>
-      <li><button class="btn hoverable block">Menu Item 2</button></li>
-      <li><button class="btn hoverable block">Menu Item 3</button></li>
-      <li><button class="btn hoverable block">Menu Item 4</button></li>
-      <li><button class="btn hoverable block">Menu Item 5</button></li>
-      <li><button class="btn hoverable block">Menu Item 6</button></li>
-      <li><button class="btn hoverable block">Menu Item 7</button></li>
-      <li><button class="btn hoverable block">Menu Item 8</button></li>
+      <li>
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Privacy statement", nil, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Imprint", nil, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Teams", teams_path, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Calendar", nil, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Tasks", tasks_path, class: "btn hoverable block" %>
+      </li>
+      <li>
+        <%= link_to "Add new task", new_task_path, class: "btn hoverable block" %>
+      </li>
     </ul>
   </nav>
 </div>
