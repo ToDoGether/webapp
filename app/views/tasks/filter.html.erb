@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<% @page_title = "Filter" %>
+
+<%= form_with url: '/tasks/', method: :get do |f| %>
+<% @teams = Team.all %>
+<% @subjects = Subject.all %>
+
+  <%= f.label :team_query, "Selected team(s)" %>
+  <%= select("team", "team_id", Team.where(id: TeamUser.where(user_id: current_user.id).map { |c| c.team_id })) %>
+
+<% end %>
