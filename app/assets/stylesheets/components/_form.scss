@@ -43,10 +43,6 @@ form {
                 flex: 1;
             }
         }
-
-        img {
-            margin-right: 0.5rem;
-        }
     }
 
     table {
@@ -74,4 +70,9 @@ form {
             margin: 0 0.5rem;
         }
     }
+}
+
+.show-icon {
+    display: flex;
+    margin-right: 0.5rem;
 }
