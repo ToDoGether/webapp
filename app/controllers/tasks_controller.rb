@@ -5,10 +5,11 @@ class TasksController < ApplicationController
   def index
     # @tasks = Task.all
     @tasks = Task.where(nil)
-    @tasks = @tasks.filter_by_name(params[:name]) if params[:name].present?
+    @tasks = @tasks.filter_by_title(params[:title]) if params[:title].present?
     @tasks = @tasks.filter_by_description(params[:description]) if params[:description].present?
     @tasks = @tasks.filter_by_subject(params[:subject]) if params[:subject].present?
     @tasks = @tasks.filter_by_team(params[:team]) if params[:team].present?
+    @tasks = @tasks.filter_by_search(params[:search]) if params[:search].present?
   end
 
   # GET /tasks/1 or /tasks/1.json
