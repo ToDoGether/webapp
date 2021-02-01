@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[show edit update destroy]
 
   # GET /tasks or /tasks.json
   def index
@@ -8,6 +8,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.filter_by_name(params[:name]) if params[:name].present?
     @tasks = @tasks.filter_by_description(params[:description]) if params[:description].present?
     @tasks = @tasks.filter_by_subject(params[:subject]) if params[:subject].present?
+    @tasks = @tasks.filter_by_team(params[:team]) if params[:team].present?
   end
 
   # GET /tasks/1 or /tasks/1.json
