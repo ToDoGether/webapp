@@ -33,6 +33,8 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        fill_user_tasks(@task)
+
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
@@ -57,6 +59,7 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    delete_from_user_tasks(@task.id)
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
@@ -79,5 +82,21 @@ class TasksController < ApplicationController
   # A list of the param names that can be used for filtering the Product list
   def filtering_params(params)
     params.slice(:status, :location, :starts_with)
+  end
+
+  def fill_user_tasks(task)
+    task.subject.team.users.each do |user|
+      user_task = UserTask.new
+
+      user_task.user_id = user.id
+      user_task.task_id = task.id
+      user_task.status = 1
+
+      user_task.save
+    end
+  end
+
+  def delete_from_user_tasks(task_id)
+    UserTask.where(task_id: task_id).destroy_all
   end
 end
