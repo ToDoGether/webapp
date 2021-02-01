@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.where(id: TeamUser.where(user_id: current_user.id).map { |c| c.team_id })
   end
 
   # GET /teams/1 or /teams/1.json
