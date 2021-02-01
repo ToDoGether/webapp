@@ -12,7 +12,6 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
-    2.times { @team.subjects.build }
   end
 
   # GET /teams/1/edit
@@ -78,6 +77,6 @@ class TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def team_params
-    params.require(:team).permit(:name, subjects_attributes: [:id, :name])
+    params.require(:team).permit(:name, subjects_attributes: [:id, :name, :_destroy])
   end
 end
