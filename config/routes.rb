@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   # NOTE: Ensure you have defined root_url to *something* in your config/routes.rb.
   #       For example:
   root to: "tasks#index"
+
+  get 'subscribe', action: :subscribe, controller: 'teams'
+
 end

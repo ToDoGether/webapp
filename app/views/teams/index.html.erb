@@ -8,7 +8,7 @@
       <tr>
         <td>
           <%= link_to edit_team_path(team), class: "show-icon" do %>
-              <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
+            <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
           <% end %>
         </td>
         <td><%= link_to team.name, team %></td>
@@ -16,6 +16,12 @@
     <% end %>
   </tbody>
 </table>
+
+<%= form_tag 'subscribe', method: "get" do %>
+  <%= label_tag(:team, "Subscribe to a team") %>
+  <%= text_field_tag(:team) %>
+  <%= submit_tag("Subscribe", class: "btn hoverable block") %>
+<% end %>
 
 <%= link_to new_team_path do %>
   <h3>Create a new team</h3>
