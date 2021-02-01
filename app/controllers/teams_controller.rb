@@ -50,7 +50,7 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: "Team was successfully updated. #{team_params}" }
+        format.html { redirect_to @team, notice: "Team was successfully updated." }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -77,6 +77,16 @@ class TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def team_params
-    params.require(:team).permit(:name, subjects_attributes: [:id, :name, :_destroy])
+    params.require(:team).permit(
+      :name,
+      subjects_attributes: [
+        :id,
+        :name,
+        :_destroy
+      ],
+      users_attributes: [
+        :email
+      ]
+      )
   end
 end
