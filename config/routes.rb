@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #       For example:
   root to: "tasks#index"
 
-  get 'subscribe', action: :subscribe, controller: 'teams'
+  get '/subscribe', action: :subscribe, controller: 'teams'
+  get '/unsubscribe/:id', action: :unsubscribe, controller: 'teams'
 
 end

@@ -21,10 +21,27 @@ class TeamsController < ApplicationController
         format.html { redirect_to teams_url, notice: 'User is already subscribed.' }
         format.json { render json: "User is already subscribed.", status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
+        # TODO: fill user_task
         format.html { redirect_to @team, notice: 'Successfully subscribed to team.' }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { redirect_to @team, notice: 'Error while subscribing: ' + @team.errors }
+        format.json { render json: @team.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /unsubscribe
+  def unsubscribe
+    @team = Team.find(params[:id])
+
+    respond_to do |format|
+      if @team.users.include?(current_user) && remove_team_user(@team.id, current_user.id)
+        # TODO: remove all from user_task
+        format.html { redirect_to teams_url, notice: 'Successfully unsubscribed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @team, notice: 'Error while unsubscribing: ' + @team.errors }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
@@ -38,16 +55,6 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @subjects = Subject.all
-  end
-
-  def create_team_user(team_id, user_id, is_admin)
-    team_user = TeamUser.new
-
-    team_user.team_id = team_id
-    team_user.user_id = user_id
-    team_user.is_admin = is_admin
-
-    team_user.save
   end
 
   # POST /teams or /teams.json
@@ -109,5 +116,20 @@ class TeamsController < ApplicationController
         :email
       ]
     )
+  end
+
+  def create_team_user(team_id, user_id, is_admin)
+    team_user = TeamUser.new
+
+    team_user.team_id = team_id
+    team_user.user_id = user_id
+    team_user.is_admin = is_admin
+
+    team_user.save
+  end
+
+  def remove_team_user(team_id, user_id)
+    team_user = TeamUser.find_by(team_id: team_id, user_id: user_id)
+    team_user.destroy
   end
 end
