@@ -67,11 +67,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:name, :subject_id, :duedate, :worktype, :description)
-  end
-
-  # A list of the param names that can be used for filtering the Product list
-  def filtering_params(params)
-    params.slice(:status, :location, :starts_with)
+    params.require(:task).permit(:name, :subject, :subject_id, :duedate, :worktype, :description)
   end
 end
