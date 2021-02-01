@@ -27,6 +27,9 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit; end
 
+  # GET /filter
+  def filter; end
+
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)

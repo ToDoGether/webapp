@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # As suggested in devise installation after running 'rails generate devise:install'
   # NOTE: Ensure you have defined root_url to *something* in your config/routes.rb.
   #       For example:
-  root to: "tasks#index"
+  root to: 'tasks#index'
 
   get '/subscribe', action: :subscribe, controller: 'teams'
   get '/unsubscribe/:id', action: :unsubscribe, controller: 'teams'
