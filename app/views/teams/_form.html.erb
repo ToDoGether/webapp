@@ -11,17 +11,51 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <%= form.label :name %>
+  <%= form.text_field :name, placeholder: "Enter team name" %>
 
-  <h2>Subjects</h2>
-  <%= form.fields_for :subjects do |subjects_form| %>
-    <%= subjects_form.text_field :name %>
+  <section class="nesting">
+    <h4>Subjects</h4>
+    <%= form.fields_for :subjects do |subjects_form| %>
+      <div class="nested-fields">
+        <%= subjects_form.text_field :name, disabled: true %>
+      </div>
+    <% end %>
+
+    <div class="add-nesting">
+      <%= image_tag("icons/icon-add.svg", alt: "add subject", class: "show-icon") %>
+      <%= link_to_add_association 'Add new subject', form, :subjects %>
+    </div>
+  </section>
+
+  <% if team.users.count > 0 %>
+    <section>
+      <h4>Users</h4>
+      <table>
+        <col id="col-email">
+        <col>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody class='fields'>
+          <%= form.fields_for :team_users do |f| %>
+            <td>
+              <div class="stretch">
+                <%= f.email_field :email, label: false, disabled: true %>
+              </div>
+            </td>
+            <td><%= f.check_box :is_admin, label: false %></td>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn hoverable" %>
+    <%= link_to 'Back', teams_path, class: "btn hoverable" %>
   </div>
 <% end %>

@@ -9,7 +9,7 @@ form {
     justify-content: space-between;
     align-items: stretch;
 
-    * {
+    > * {
         margin-top: 1rem;
     }
 
@@ -25,4 +25,54 @@ form {
     .label-checkbox {
         font-size: 1rem;
     }
+
+    .nesting {
+        .add-nesting {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .nested-fields {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 0.5rem;
+
+            input {
+                padding: 0.5rem;
+                flex: 1;
+            }
+        }
+    }
+
+    table {
+        #col-email {
+            width: 100%;
+        }
+
+        .stretch {
+            display: flex;
+            width: 100%;
+        }
+        input {
+            padding: 0.5rem;
+            width: 100%;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > * {
+            flex: 1;
+            margin: 0 0.5rem;
+        }
+    }
+}
+
+.show-icon {
+    display: flex;
+    margin-right: 0.5rem;
 }

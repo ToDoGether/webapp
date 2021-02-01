@@ -3,25 +3,26 @@
 <% @page_title = "Teams" %>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @teams.each do |team| %>
       <tr>
-        <td><%= team.name %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to edit_team_path(team), class: "show-icon" do %>
+            <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
+          <% end %>
+        </td>
+        <td><%= link_to team.name, team %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<%= form_tag 'subscribe', method: "get" do %>
+  <%= label_tag(:team, "Subscribe to a team") %>
+  <%= text_field_tag(:team) %>
+  <%= submit_tag("Subscribe", class: "btn hoverable block") %>
+<% end %>
 
-<%= link_to 'New Team', new_team_path %>
+<%= link_to new_team_path do %>
+  <h3>Create a new team</h3>
+<% end %>

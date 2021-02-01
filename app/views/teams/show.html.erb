@@ -2,10 +2,30 @@
 
 <% @page_title = @team.name + " [Team]" %>
 
-<p>
-  <strong>Name:</strong>
+<h3>
+  <%# TODO: check permissions %>
+  <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
   <%= @team.name %>
-</p>
+</h3>
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
+<h4>Subjects</h4>
+<% @team.subjects.each do |subject| %>
+  <p><%= subject.name %></p>
+<% end %>
+
+<% if @team.users.count > 0 %>
+  <section>
+    <h4>Users</h4>
+    <% @team.users.each do |user| %>
+      <div>
+        <% if(@team.team_users.find_by(user_id: user.id, team_id: @team.id).is_admin) %>
+          <b>ADMIN</b>
+        <% end %>
+        <%= user.email %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<%= link_to 'Unsubscribe', '/unsubscribe/' + @team.id.to_s %> |
 <%= link_to 'Back', teams_path %>
