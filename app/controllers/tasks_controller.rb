@@ -7,6 +7,7 @@ class TasksController < ApplicationController
     @tasks = Task.where(nil)
     @tasks = @tasks.filter_by_name(params[:name]) if params[:name].present?
     @tasks = @tasks.filter_by_description(params[:description]) if params[:description].present?
+    @tasks = @tasks.filter_by_subject(params[:subject]) if params[:subject].present?
   end
 
   # GET /tasks/1 or /tasks/1.json
