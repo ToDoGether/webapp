@@ -14,34 +14,38 @@ class TeamsController < ApplicationController
     @team = Team.find_by name: params[:team]
 
     respond_to do |format|
-      if @team == nil
+      if @team.nil?
         format.html { redirect_to teams_url, notice: 'Team not found.' }
-        format.json { render json: "Team not found.", status: :unprocessable_entity }
+        format.json { render json: 'Team not found.', status: :unprocessable_entity }
       elsif @team.users.include?(current_user)
         format.html { redirect_to teams_url, notice: 'User is already subscribed.' }
-        format.json { render json: "User is already subscribed.", status: :unprocessable_entity }
+        format.json { render json: 'User is already subscribed.', status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
-        # TODO: fill user_task
+
+        fill_user_tasks(@team.id, current_user.id)
+
         format.html { redirect_to @team, notice: 'Successfully subscribed to team.' }
         format.json { render :show, status: :created, location: @team }
       else
-        format.html { redirect_to @team, notice: 'Error while subscribing: ' + @team.errors }
+        format.html { redirect_to @team, notice: 'Error while subscribing.' }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # POST /unsubscribe
+  # GET /unsubscribe/1
   def unsubscribe
     @team = Team.find(params[:id])
 
     respond_to do |format|
       if @team.users.include?(current_user) && remove_team_user(@team.id, current_user.id)
-        # TODO: remove all from user_task
+
+        remove_user_tasks(@team.id, current_user.id)
+        
         format.html { redirect_to teams_url, notice: 'Successfully unsubscribed.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @team, notice: 'Error while unsubscribing: ' + @team.errors }
+        format.html { redirect_to @team, notice: 'Error while unsubscribing.' }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
@@ -131,5 +135,29 @@ class TeamsController < ApplicationController
   def remove_team_user(team_id, user_id)
     team_user = TeamUser.find_by(team_id: team_id, user_id: user_id)
     team_user.destroy
+  end
+
+  def fill_user_tasks(team_id, user_id)
+    subject_ids = Subject.where(team_id: team_id).map { |c| c.id } # List of Subject ids of team_id
+    tasks = Task.where(subject_id: subject_ids) # List of all tasks in subjects
+
+    tasks.each do |task|
+      user_task = UserTask.new
+
+      user_task.user_id = user_id
+      user_task.task_id = task.id
+      user_task.status = 1
+
+      user_task.save
+    end
+  end
+
+  def remove_user_tasks(team_id, user_id)
+    subject_ids = Subject.where(team_id: team_id).map { |c| c.id } # List of Subject ids of team_id
+    tasks = Task.where(subject_id: subject_ids) # List of all tasks in subjects
+
+    tasks.each do |task|
+      UserTask.where(task_id: task.id, user_id: user_id).destroy_all
+    end
   end
 end

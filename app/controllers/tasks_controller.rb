@@ -7,7 +7,13 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
+    # @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
+    @tasks = current_user.tasks
+    @tasks = @tasks.filter_by_title(params[:title])
+    @tasks = @tasks.filter_by_description(params[:description])
+    @tasks = @tasks.filter_by_subject(params[:subject])
+    @tasks = @tasks.filter_by_team(params[:team])
+    @tasks = @tasks.filter_by_search(params[:search])
   end
 
   # GET /tasks/1 or /tasks/1.json
