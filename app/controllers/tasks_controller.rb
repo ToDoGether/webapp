@@ -9,13 +9,15 @@ class TasksController < ApplicationController
   def index
     # @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
     @tasks = current_user.tasks
-    @tasks = @tasks.filter_by_title(params[:title])
-    @tasks = @tasks.filter_by_description(params[:description])
-    @tasks = @tasks.filter_by_subject(params[:subject])
-    @tasks = @tasks.filter_by_team(params[:team])
-    @tasks = @tasks.filter_by_search(params[:search])
+                         .filter_by_title(params[:title])
+                         .filter_by_description(params[:description])
+                         .filter_by_subject(params[:subject])
+                         .filter_by_team(params[:team])
+                         .filter_by_search(params[:search])
 
-    @user_tasks = UserTask.where(task_id: @tasks.map { |c| c.id })
+    @user_tasks = UserTask.where(status: 2, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 1, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 3, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
