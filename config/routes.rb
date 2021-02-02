@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   get '/subscribe', action: :subscribe, controller: 'teams'
   get '/unsubscribe/:id', action: :unsubscribe, controller: 'teams'
+  get '/change_status/:id/:direction', action: :change_status, controller: 'tasks'
 
 end
