@@ -1,61 +1,63 @@
-<%= form_with(model: team) do |form| %>
-  <% if team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+<div class="margin">
+  <%= form_with(model: team) do |form| %>
+    <% if team.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
 
-      <ul>
-        <% team.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= form.label :name %>
-  <%= form.text_field :name, placeholder: "Enter team name" %>
-
-  <section class="nesting">
-    <h4>Subjects</h4>
-    <%= form.fields_for :subjects do |subjects_form| %>
-      <div class="nested-fields">
-        <%= subjects_form.text_field :name, disabled: true %>
+        <ul>
+          <% team.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
 
-    <div class="add-nesting">
-      <%= image_tag("icons/icon-add.svg", alt: "add subject", class: "show-icon") %>
-      <%= link_to_add_association 'Add new subject', form, :subjects %>
-    </div>
-  </section>
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter team name" %>
 
-  <% if team.users.count > 0 %>
-    <section>
-      <h4>Users</h4>
-      <table>
-        <col id="col-email">
-        <col>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Admin</th>
-          </tr>
-        </thead>
-        <tbody class='fields'>
-          <%= form.fields_for :team_users do |f| %>
-            <td>
-              <div class="stretch">
-                <%= f.email_field :email, label: false, disabled: true %>
-              </div>
-            </td>
-            <td><%= f.check_box :is_admin, label: false %></td>
-          <% end %>
-        </tbody>
-      </table>
+    <section class="nesting">
+      <h4>Subjects</h4>
+      <%= form.fields_for :subjects do |subjects_form| %>
+        <div class="nested-fields">
+          <%= subjects_form.text_field :name, disabled: true, class: "small-padding" %>
+        </div>
+      <% end %>
+
+      <div class="add-nesting">
+        <%= image_tag("icons/icon-add.svg", alt: "add subject", class: "show-icon") %>
+        <%= link_to_add_association 'Add new subject', form, :subjects %>
+      </div>
     </section>
-  <% end %>
 
-  <div class="actions">
-    <%= form.submit class: "btn hoverable" %>
-    <%= link_to 'Back', teams_path, class: "btn hoverable" %>
-  </div>
-<% end %>
+    <% if team.users.count > 0 %>
+      <section>
+        <h4>Users</h4>
+        <table>
+          <col id="col-email">
+          <col>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Admin</th>
+            </tr>
+          </thead>
+          <tbody class='fields'>
+            <%= form.fields_for :team_users do |f| %>
+              <td>
+                <div class="stretch">
+                  <%= f.email_field :email, label: false, disabled: true, class: "small-padding" %>
+                </div>
+              </td>
+              <td><%= f.check_box :is_admin, label: false %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
+
+    <div class="actions">
+      <%= form.submit class: "btn hoverable" %>
+      <%= link_to 'Back', teams_path, class: "btn hoverable" %>
+    </div>
+  <% end %>
+</div>

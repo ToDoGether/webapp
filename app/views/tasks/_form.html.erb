@@ -32,13 +32,13 @@
     <h4>Attachments</h4>
     <%= form.fields_for :attachments do |attachments_form| %>
       <div class="nested-fields">
-        <%= attachments_form.text_field :name, disabled: true %>
+        <%= attachments_form.text_field :name, disabled: true, class: "small-padding" %>
       </div>
     <% end %>
 
     <div class="add-nesting">
       <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
-      <%= link_to_add_association 'Add new attachment', form, :attachments %>
+      <%= link_to_add_association 'Add new attachment', form, :attachments, class: "small-padding" %>
     </div>
   </section>
 

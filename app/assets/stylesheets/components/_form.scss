@@ -3,7 +3,8 @@
 // -----------------------------------------------------------------------------
 @import "../abstracts/_abstracts-dir";
 
-form {
+form,
+.form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -39,7 +40,6 @@ form {
             margin-bottom: 0.5rem;
 
             input {
-                padding: 0.5rem;
                 flex: 1;
             }
         }
@@ -55,7 +55,6 @@ form {
             width: 100%;
         }
         input {
-            padding: 0.5rem;
             width: 100%;
         }
     }
@@ -75,4 +74,14 @@ form {
 .show-icon {
     display: flex;
     margin-right: 0.5rem;
+}
+
+.small-padding {
+    padding: 0.5rem;
+}
+
+#form-subscribe {
+    > * {
+        margin: 0.5rem 0;
+    }
 }
