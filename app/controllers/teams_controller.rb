@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.where(id: TeamUser.where(user_id: current_user.id).map { |c| c.team_id })
+    @teams = current_user.teams
   end
 
   # GET /teams/1 or /teams/1.json
@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
         format.json { render json: 'User is already subscribed.', status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
 
-        fill_user_tasks(@team.id, current_user.id)
+        fill_user_tasks(@team, current_user)
 
         format.html { redirect_to @team, notice: 'Successfully subscribed to team.' }
         format.json { render :show, status: :created, location: @team }
@@ -40,8 +40,8 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.users.include?(current_user) && remove_team_user(@team.id, current_user.id)
 
-        remove_user_tasks(@team.id, current_user.id)
-        
+        remove_user_tasks(@team, current_user)
+
         format.html { redirect_to teams_url, notice: 'Successfully unsubscribed.' }
         format.json { head :no_content }
       else
@@ -137,27 +137,25 @@ class TeamsController < ApplicationController
     team_user.destroy
   end
 
-  def fill_user_tasks(team_id, user_id)
-    subject_ids = Subject.where(team_id: team_id).map { |c| c.id } # List of Subject ids of team_id
-    tasks = Task.where(subject_id: subject_ids) # List of all tasks in subjects
+  def fill_user_tasks(team, user)
+    team.subjects.each do |subject|
+      subject.tasks.each do |task|
+        user_task = UserTask.new
 
-    tasks.each do |task|
-      user_task = UserTask.new
+        user_task.user_id = user.id
+        user_task.task_id = task.id
+        user_task.status = 1
 
-      user_task.user_id = user_id
-      user_task.task_id = task.id
-      user_task.status = 1
-
-      user_task.save
+        user_task.save
+      end
     end
   end
 
-  def remove_user_tasks(team_id, user_id)
-    subject_ids = Subject.where(team_id: team_id).map { |c| c.id } # List of Subject ids of team_id
-    tasks = Task.where(subject_id: subject_ids) # List of all tasks in subjects
-
-    tasks.each do |task|
-      UserTask.where(task_id: task.id, user_id: user_id).destroy_all
+  def remove_user_tasks(team, user)
+    team.subjects.each do |subject|
+      subject.tasks.each do |task|
+        UserTask.find_by(task_id: task.id, user_id: user.id).destroy
+      end
     end
   end
 end

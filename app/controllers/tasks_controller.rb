@@ -15,9 +15,9 @@ class TasksController < ApplicationController
                          .filter_by_team(params[:team])
                          .filter_by_search(params[:search])
 
-    @user_tasks = UserTask.where(status: 2, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
-                  UserTask.where(status: 1, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
-                  UserTask.where(status: 3, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate')
+    @user_tasks = UserTask.where(status: 2, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 1, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 3, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
@@ -138,6 +138,6 @@ class TasksController < ApplicationController
   end
 
   def delete_from_user_tasks(task_id)
-    UserTask.where(task_id: task_id).destroy_all
+    UserTask.find_by(task_id: task_id).destroy
   end
 end
