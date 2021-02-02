@@ -14,6 +14,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.filter_by_subject(params[:subject])
     @tasks = @tasks.filter_by_team(params[:team])
     @tasks = @tasks.filter_by_search(params[:search])
+
+    @user_tasks = UserTask.where(task_id: @tasks.map { |c| c.id })
   end
 
   # GET /tasks/1 or /tasks/1.json

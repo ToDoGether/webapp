@@ -2,26 +2,31 @@
 
 <% @page_title = "Tasks" %>
 
-<% @tasks.each do |task| %>
+<% @user_tasks.each do |user_task|
+  task = user_task.task
+  status_prev = user_task.status_name(user_task.status_prev)
+  status_current = user_task.status_name(user_task.status)
+  status_next = user_task.status_name(user_task.status_next)
+  %>
   <div class="task">
-    <button class="btn slide left todo"></button>
+    <button class="btn slide left <%= status_prev %>"></button>
     <section class="task-content">
       <%= link_to task do %>
         <div class="top">
           <div class="subject"><%= task.subject.name %></div>
-          <button class="btn state doing">Doing</button>
+          <button class="btn state <%= status_current %>"><%= status_current %></button>
         </div>
         <h4><%= task.name %></h4>
         <div class="bottom">
           <div class="icons">
-              <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
-              <%= image_tag("icons/icon-group.svg", alt: "Working in a group") %>
-              <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
-              </div>
+            <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
+            <%= image_tag("icons/icon-group.svg", alt: "Working in a group") %>
+            <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
+          </div>
           <div class="duedate"><%= task.duedate %></div>
         </div>
       <% end %>
     </section>
-    <button class="btn slide right done"></button>
+    <button class="btn slide right <%= status_next %>"></button>
   </div>
 <% end %>
