@@ -2,31 +2,49 @@
 
 <% @page_title = @task.name + " [Task]" %>
 
-<p>
-  <strong>Name:</strong>
+<h4>
+  <%# TODO: check permissions %>
+  <%= link_to edit_task_path(@task) do %><%= image_tag("icons/icon-edit.svg", alt: "edit task") %><% end %>
   <%= @task.name %>
-</p>
+  <%# TODO: check permissions %>
+  <%= link_to @task, method: :delete, data: { confirm: 'Are you sure?' } do %><%= image_tag("icons/icon-delete.svg", alt: "delete task") %><% end %>
+</h4>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @task.subject_id %>
-</p>
+<div style="color: <%= @task.subject.color %>" class="subject">
+  <%= @task.subject.name %>
+</div>
 
-<p>
-  <strong>Duedate:</strong>
+<div>
+  <h5>Current status</h5>
+  <% user_task = current_user.user_tasks.find_by(task_id: @task.id) %>
+  <button class="btn state <%= user_task.status_name %>"><%= user_task.status_name %></button>
+</div>
+
+<div>
+  <h5>Due Date</h5>
   <%= @task.duedate %>
-</p>
+</div>
 
-<p>
-  <strong>Worktype:</strong>
-  <%= @task.worktype %>
-</p>
+<div>
+  <h5>Type of assignment</h5>
+  <%= @task.get_worktype_name %>
+</div>
 
-<p>
-  <strong>Description:</strong>
+<div>
+  <h5>Description</h5>
   <%= @task.description %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', tasks_path %>
+<div>
+  <h5>Attachment(s)</h5>
+  <% @task.attachments.each do |attachment| %>
+    <%= attachment.name %>
+  <% end %>
+</div>
+
+<div>
+  <h5>Web Links</h5>
+  <% @task.weblinks.each do |link| %>
+    <%= link.name %>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@
 <% @user_tasks.each do |user_task|
   task = user_task.task
   status_prev = user_task.status_name(user_task.status_prev)
-  status_current = user_task.status_name(user_task.status)
+  status_current = user_task.status_name
   status_next = user_task.status_name(user_task.status_next)
   %>
 <div class="task">
@@ -13,7 +13,7 @@
   <section class="task-content">
     <%= link_to task do %>
       <div class="top">
-        <div class="subject"><%= task.subject.name %></div>
+        <div style="color: <%= task.subject.color %>" class="subject"><%= task.subject.name %></div>
         <button class="btn state <%= status_current %>"><%= status_current %></button>
       </div>
       <h4><%= task.name %></h4>
