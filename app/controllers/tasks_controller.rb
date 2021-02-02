@@ -15,9 +15,9 @@ class TasksController < ApplicationController
                          .filter_by_team(params[:team])
                          .filter_by_search(params[:search])
 
-    @user_tasks = UserTask.where(status: 2, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
-                  UserTask.where(status: 1, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
-                  UserTask.where(status: 3, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
+    @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
+                  current_user.user_tasks.where(status: 1, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
+                  current_user.user_tasks.where(status: 3, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
