@@ -68,7 +68,7 @@
     background-color: $color-background;
     border: 0;
     border-radius: 0;
-    box-shadow: 0;
+    box-shadow: none;
     padding: 0;
     background-repeat: no-repeat;
     background-position: center;
@@ -90,7 +90,7 @@
   &.done {
     background-color: $color-state-done;
   }
-  &.nostate {
+  &.nostatus {
     background-color: $color-background;
     pointer-events: none;
   }

@@ -9,11 +9,52 @@ class TasksController < ApplicationController
   def index
     # @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
     @tasks = current_user.tasks
-    @tasks = @tasks.filter_by_title(params[:title])
-    @tasks = @tasks.filter_by_description(params[:description])
-    @tasks = @tasks.filter_by_subject(params[:subject])
-    @tasks = @tasks.filter_by_team(params[:team])
-    @tasks = @tasks.filter_by_search(params[:search])
+                         .filter_by_title(params[:title])
+                         .filter_by_description(params[:description])
+                         .filter_by_subject(params[:subject])
+                         .filter_by_team(params[:team])
+                         .filter_by_search(params[:search])
+
+    @user_tasks = UserTask.where(status: 2, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 1, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate') +
+                  UserTask.where(status: 3, task_id: @tasks.map { |c| c.id }).includes(:task).order('tasks.duedate')
+  end
+
+  # GET /change_status/1/prev or /change_status/1/next
+  def change_status
+    user_task_id = params[:id]
+    direction = params[:direction]
+
+    user_task = UserTask.find(user_task_id)
+
+    error = false
+
+    case direction
+    when 'prev'
+      user_task.status = user_task.status_prev
+    when 'next'
+      user_task.status = user_task.status_next
+    else
+      # Wrong direction-parameter
+      error = true
+    end
+
+    # Ensure User can not change staus
+    error = true if user_task.user_id != current_user.id
+
+    # Ensure User can not change to status 'nostatus'
+    error = true if user_task.status_name(user_task.status) == 'nostatus'
+
+    respond_to do |format|
+      # Save only if no error!
+      if !error && user_task.save
+        format.html { redirect_to tasks_url, notice: 'Task status was successfully changed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to tasks_url, notice: 'Task status change failed.' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
