@@ -11,32 +11,53 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <%= form.label :name %>
+  <%= form.text_field :name, placeholder: "Enter task name" %>
+
+  <%= form.label :subject_id %>
+  <%= form.text_field :subject_id, placeholder: "Enter Subject-ID TODO change" %>
+
+  <%= form.label :duedate %>
+  <div class="dateselect">
+    <%= form.date_select :duedate %>
   </div>
 
-  <div class="field">
-    <%= form.label :subject_id %>
-    <%= form.text_field :subject_id %>
-  </div>
+  <%= form.label :worktype %>
+  <%= form.text_field :worktype %>
 
-  <div class="field">
-    <%= form.label :duedate %>
-    <%= form.datetime_select :duedate %>
-  </div>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
 
-  <div class="field">
-    <%= form.label :worktype %>
-    <%= form.text_field :worktype %>
-  </div>
+  <section class="nesting">
+    <h4>Attachments</h4>
+    <%= form.fields_for :attachments do |attachments_form| %>
+      <div class="nested-fields">
+        <%= attachments_form.text_field :name, disabled: true %>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+    <div class="add-nesting">
+      <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
+      <%= link_to_add_association 'Add new attachment', form, :attachments %>
+    </div>
+  </section>
+
+  <section class="nesting">
+    <h4>Weblinks</h4>
+    <%= form.fields_for :weblinks do |weblinks_form| %>
+      <div class="nested-fields">
+        <%= weblinks_form.text_field :name, disabled: true %>
+      </div>
+    <% end %>
+
+    <div class="add-nesting">
+      <%= image_tag("icons/icon-add.svg", alt: "add weblink", class: "show-icon") %>
+      <%= link_to_add_association 'Add new weblink', form, :weblinks %>
+    </div>
+  </section>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn hoverable" %>
+    <%= link_to 'Cancel', @task ? @task : tasks_path, class: "btn hoverable" %>
   </div>
 <% end %>

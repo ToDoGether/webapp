@@ -57,9 +57,7 @@ class TeamsController < ApplicationController
   end
 
   # GET /teams/1/edit
-  def edit
-    @subjects = Subject.all
-  end
+  def edit; end
 
   # POST /teams or /teams.json
   def create
