@@ -1,22 +1,28 @@
 <div id="menu" class="hide">
-  <h1 class="bgblue">ToDoGether</h1>
+  <%= link_to tasks_path, class: "noline" do %>
+    <h1 class="bgblue">ToDoGether</h1>
+  <% end %>
   <nav>
     <ul>
       <li>
         <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "btn hoverable block" %>
       </li>
+      <!--
       <li>
         <%= link_to "Privacy statement", nil, class: "btn hoverable block" %>
       </li>
       <li>
         <%= link_to "Imprint", nil, class: "btn hoverable block" %>
       </li>
+      -->
       <li>
         <%= link_to "Teams", teams_path, class: "btn hoverable block" %>
       </li>
+      <!--
       <li>
         <%= link_to "Calendar", nil, class: "btn hoverable block" %>
       </li>
+      -->
       <li>
         <%= link_to "Tasks", tasks_path, class: "btn hoverable block" %>
       </li>

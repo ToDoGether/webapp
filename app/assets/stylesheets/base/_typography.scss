@@ -46,4 +46,8 @@ h5 {
 
 a {
   color: $color-black;
+
+  &.noline {
+    text-decoration: none;
+  }
 }
