@@ -1,9 +1,22 @@
+<script>
+  function toggleMenu() {
+    document.getElementById("menu").classList.toggle("hide");
+    document.getElementById("menu-open").classList.toggle("hide");
+    document.getElementById("menu-close").classList.toggle("hide");
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    if(screen.width < 768)
+      toggleMenu(); // Initial hide on small screens
+  });
+</script>
+
 <footer>
   <h4 class="bgblue"><%= @page_title %></h4>
-  <a class="menu-icon open hide" href="javascript:void(0)">
-    <%= image_tag("icons/icon-menu.svg", alt: "Menu-Icon") %>
-  </a>
-  <a class="menu-icon close" href="javascript:void(0)">
-    <%= image_tag("icons/icon-close-menu.svg", alt: "Menu-Icon") %>
-  </a>
+  <div id="menu-open" class="menu-icon hide">
+    <%= image_tag("icons/icon-menu.svg", alt: "Menu-Icon", onclick: "toggleMenu()") %>
+  </div>
+  <div id="menu-close" class="menu-icon">
+    <%= image_tag("icons/icon-close-menu.svg", alt: "Menu-Icon", onclick: "toggleMenu()") %>
+  </div>
 </footer>
