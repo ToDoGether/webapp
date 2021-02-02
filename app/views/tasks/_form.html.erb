@@ -1,63 +1,65 @@
-<%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<div class="margin">
+  <%= form_with(model: task) do |form| %>
+    <% if task.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% task.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter task name" %>
+
+    <%= form.label :subject_id %>
+    <%= form.text_field :subject_id, placeholder: "Enter Subject-ID TODO change" %>
+
+    <%= form.label :duedate %>
+    <div class="dateselect">
+      <%= form.date_select :duedate %>
+    </div>
+
+    <%= form.label :worktype %>
+    <%= form.text_field :worktype %>
+
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+
+    <section class="nesting">
+      <h4>Attachments</h4>
+      <%= form.fields_for :attachments do |attachments_form| %>
+        <div class="nested-fields">
+          <%= attachments_form.text_field :name, disabled: true, class: "small-padding" %>
+        </div>
+      <% end %>
+
+      <div class="add-nesting">
+        <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
+        <%= link_to_add_association 'Add new attachment', form, :attachments, class: "small-padding" %>
+      </div>
+    </section>
+
+    <section class="nesting">
+      <h4>Weblinks</h4>
+      <%= form.fields_for :weblinks do |weblinks_form| %>
+        <div class="nested-fields">
+          <%= weblinks_form.text_field :name, disabled: true %>
+        </div>
+      <% end %>
+
+      <div class="add-nesting">
+        <%= image_tag("icons/icon-add.svg", alt: "add weblink", class: "show-icon") %>
+        <%= link_to_add_association 'Add new weblink', form, :weblinks %>
+      </div>
+    </section>
+
+    <div class="actions">
+      <%= form.submit class: "btn hoverable" %>
+      <%= link_to 'Cancel', @task ? @task : tasks_path, class: "btn hoverable" %>
     </div>
   <% end %>
-
-  <%= form.label :name %>
-  <%= form.text_field :name, placeholder: "Enter task name" %>
-
-  <%= form.label :subject_id %>
-  <%= form.text_field :subject_id, placeholder: "Enter Subject-ID TODO change" %>
-
-  <%= form.label :duedate %>
-  <div class="dateselect">
-    <%= form.date_select :duedate %>
-  </div>
-
-  <%= form.label :worktype %>
-  <%= form.text_field :worktype %>
-
-  <%= form.label :description %>
-  <%= form.text_field :description %>
-
-  <section class="nesting">
-    <h4>Attachments</h4>
-    <%= form.fields_for :attachments do |attachments_form| %>
-      <div class="nested-fields">
-        <%= attachments_form.text_field :name, disabled: true, class: "small-padding" %>
-      </div>
-    <% end %>
-
-    <div class="add-nesting">
-      <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
-      <%= link_to_add_association 'Add new attachment', form, :attachments, class: "small-padding" %>
-    </div>
-  </section>
-
-  <section class="nesting">
-    <h4>Weblinks</h4>
-    <%= form.fields_for :weblinks do |weblinks_form| %>
-      <div class="nested-fields">
-        <%= weblinks_form.text_field :name, disabled: true %>
-      </div>
-    <% end %>
-
-    <div class="add-nesting">
-      <%= image_tag("icons/icon-add.svg", alt: "add weblink", class: "show-icon") %>
-      <%= link_to_add_association 'Add new weblink', form, :weblinks %>
-    </div>
-  </section>
-
-  <div class="actions">
-    <%= form.submit class: "btn hoverable" %>
-    <%= link_to 'Cancel', @task ? @task : tasks_path, class: "btn hoverable" %>
-  </div>
-<% end %>
+</div>
