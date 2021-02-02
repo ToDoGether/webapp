@@ -38,6 +38,16 @@ label {
   font-weight: normal;
 }
 
+h5 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
 a {
   color: $color-black;
+
+  &.noline {
+    text-decoration: none;
+  }
 }

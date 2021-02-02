@@ -1,31 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="margin form">
+  <p id="notice"><%= notice %></p>
 
-<% @page_title = @team.name + " [Team]" %>
+  <% @page_title = @team.name + " [Team]" %>
 
-<h3>
-  <%# TODO: check permissions %>
-  <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
-  <%= @team.name %>
-</h3>
+  <h3>
+    <%# TODO: check permissions %>
+    <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
+    <%= @team.name %>
+  </h3>
 
-<h4>Subjects</h4>
-<% @team.subjects.each do |subject| %>
-  <p><%= subject.name %></p>
-<% end %>
-
-<% if @team.users.count > 0 %>
-  <section>
-    <h4>Users</h4>
-    <% @team.users.each do |user| %>
-      <div>
-        <% if(@team.team_users.find_by(user_id: user.id, team_id: @team.id).is_admin) %>
-          <b>ADMIN</b>
-        <% end %>
-        <%= user.email %>
-      </div>
+  <h4>Subjects</h4>
+  <ul>
+    <% @team.subjects.each do |subject| %>
+      <li style="color: <%= subject.color %>"><%= subject.name %></li>
     <% end %>
-  </section>
-<% end %>
+  </ul>
 
-<%= link_to 'Unsubscribe', '/unsubscribe/' + @team.id.to_s %> |
-<%= link_to 'Back', teams_path %>
+  <% if @team.users.count > 0 %>
+    <section>
+      <h4>Users</h4>
+      <ul>
+        <% @team.users.each do |user| %>
+          <li>
+            <% if(@team.team_users.find_by(user_id: user.id, team_id: @team.id).is_admin) %>
+              <b>ADMIN</b>
+            <% end %>
+            <%= user.email %>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <div class="actions">
+    <%= link_to 'Unsubscribe', '/unsubscribe/' + @team.id.to_s, class: "btn hoverable" %>
+    <%= link_to 'Back', teams_path, class: "btn hoverable" %>
+  </div>
+</div>

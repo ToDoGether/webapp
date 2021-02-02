@@ -25,6 +25,8 @@ body {
 
   main {
     grid-area: main;
+    display: flex;
+    flex-direction: column;
     padding-top: 1rem;
     width: 100%;
     max-width: $tablet-screen;
@@ -36,6 +38,10 @@ body {
     scrollbar-width: none;  /* Firefox */
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    .margin {
+      margin: 1rem;
     }
   }
 

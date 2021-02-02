@@ -3,6 +3,12 @@
 // -----------------------------------------------------------------------------
 @import "../abstracts/_abstracts-dir";
 
+.subject {
+    font-family: $roboto;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .task {
     display: flex;
     flex-direction: row;
@@ -19,12 +25,6 @@
         padding: 0.75rem;
         background-color: $color-background-tasks;
         font-family: $roboto;
-
-        .subject {
-            font-weight: bold;
-            color: brown; // Random Color
-            text-transform: uppercase;
-        }
 
         .duedate {
             font-weight: lighter;

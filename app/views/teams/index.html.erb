@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="margin">
+  <p id="notice"><%= notice %></p>
 
-<% @page_title = "Teams" %>
+  <% @page_title = "Teams" %>
 
-<table>
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td>
-          <%= link_to edit_team_path(team), class: "show-icon" do %>
-            <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
-          <% end %>
-        </td>
-        <td><%= link_to team.name, team %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <td>
+            <%= link_to edit_team_path(team), class: "show-icon" do %>
+              <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
+            <% end %>
+          </td>
+          <td><%= link_to team.name, team %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= form_tag 'subscribe', method: "get" do %>
-  <%= label_tag(:team, "Subscribe to a team") %>
-  <%= text_field_tag(:team) %>
-  <%= submit_tag("Subscribe", class: "btn hoverable block") %>
-<% end %>
+  <%= form_tag 'subscribe', method: "get", id: "form-subscribe" do %>
+    <%= label_tag(:team, "Subscribe to a team") %>
+    <%= text_field_tag :team, nil, class: "small-padding" %>
+    <%= submit_tag("Subscribe", class: "btn hoverable block") %>
+  <% end %>
 
-<%= link_to new_team_path do %>
-  <h3>Create a new team</h3>
-<% end %>
+  <%= link_to new_team_path do %>
+    <h4>Create a new team</h4>
+  <% end %>
+</div>

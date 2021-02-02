@@ -10,7 +10,7 @@ class UserTask < ApplicationRecord
     status + 1
   end
 
-  def status_name(status_nr)
+  def status_name(status_nr = status)
     case status_nr
     when 1
       "todo"
