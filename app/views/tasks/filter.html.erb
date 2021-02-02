@@ -3,11 +3,11 @@
 <% @page_title = "Filter" %>
 
 <%= form_with url: '/tasks/', method: :get do |f| %>
-<% @teams = Team.all %>
-<% @subjects = Subject.all %>
 
   <%= f.label :team_query, "Selected team(s)" %>
-  <%= select("team", "name", Team.where(id: TeamUser.where(user_id: current_user.id).map { |c| c.id }).collect { |t| [ t.name, t.id ] } ) %>
-  <!-- <%= select("team", "team_id", Team.all.collect { |t| [ t.name, t.id ] } ) %> -->
+  <%= select("team", "name", current_user.teams.collect { |t| [ t.name, t.id ] } ) %>
+  
+  <%= f.label :subject_query, "Selected subject(s)" %>
+  <%= f.select :subject_id, options_for_select(current_user.subjects.collect { |s| [ s.name, s.id ] } ), {prompt: '-Select-', :multiple => true}, { id: :id } %>
 
 <% end %>
