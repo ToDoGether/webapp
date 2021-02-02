@@ -4,19 +4,19 @@
     document.getElementById("menu-open").classList.toggle("hide");
     document.getElementById("menu-close").classList.toggle("hide");
   }
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    if(screen.width < 768)
-      toggleMenu(); // Initial hide on small screens
-  });
 </script>
 
 <footer>
   <h4 class="bgblue"><%= @page_title %></h4>
-  <div id="menu-open" class="menu-icon hide">
+  <div id="menu-open" class="menu-icon">
     <%= image_tag("icons/icon-menu.svg", alt: "Menu-Icon", onclick: "toggleMenu()") %>
   </div>
-  <div id="menu-close" class="menu-icon">
+  <div id="menu-close" class="menu-icon hide">
     <%= image_tag("icons/icon-close-menu.svg", alt: "Menu-Icon", onclick: "toggleMenu()") %>
   </div>
 </footer>
+<script>
+    if(window.innerWidth > 1024) {
+      toggleMenu(); // Initially show menu on bigger screens
+    }
+</script>
