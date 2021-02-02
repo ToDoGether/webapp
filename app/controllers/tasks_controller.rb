@@ -136,6 +136,6 @@ class TasksController < ApplicationController
   end
 
   def delete_from_user_tasks(task_id)
-    UserTask.find_by(task_id: task_id).destroy
+    UserTask.where(task_id: task_id).destroy_all
   end
 end
