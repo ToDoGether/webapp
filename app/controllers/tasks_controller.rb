@@ -68,6 +68,9 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit; end
 
+  # GET /filter
+  def filter; end
+
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
@@ -117,12 +120,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:name, :subject_id, :duedate, :worktype, :description)
-  end
-
-  # A list of the param names that can be used for filtering the Product list
-  def filtering_params(params)
-    params.slice(:status, :location, :starts_with)
+    params.require(:task).permit(:name, :subject, :duedate, :worktype, :description)
   end
 
   def fill_user_tasks(task)
