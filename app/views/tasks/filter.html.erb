@@ -6,8 +6,8 @@
 
   <%= f.label :team_query, "Selected team(s)" %>
   <%= select("team", "name", current_user.teams.collect { |t| [ t.name, t.id ] } ) %>
-  
+
   <%= f.label :subject_query, "Selected subject(s)" %>
-  <%= f.select :subject_id, options_for_select(current_user.subjects.collect { |s| [ s.name, s.id ] } ), {prompt: '-Select-', :multiple => true}, { id: :id } %>
+  <%= f.collection_check_boxes :subject_id, current_user.subjects , :id , :name %>
 
 <% end %>
