@@ -5,9 +5,10 @@
 <%= form_with url: '/tasks/', method: :get do |f| %>
 
   <%= f.label :team_query, "Selected team(s)" %>
-  <%= select("team", "name", current_user.teams.collect { |t| [ t.name, t.id ] } ) %>
+  <%= f.select :team, current_user.teams.collect { |t| t.name } %>
 
   <%= f.label :subject_query, "Selected subject(s)" %>
-  <%= f.select :subject_id, options_from_collection_for_select(current_user.subjects, "id", "name", ), {}, {:size => current_user.subjects.size, :multiple=>true } %>
+  <%= f.select "subjects", options_from_collection_for_select(current_user.subjects, "id", "name", ), {}, {:size => current_user.subjects.size, :multiple=>true } %>
 
+  <%= f.submit "Apply Filter" , class: "btn hoverable" %>
 <% end %>
