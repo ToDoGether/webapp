@@ -8,6 +8,6 @@
   <%= select("team", "name", current_user.teams.collect { |t| [ t.name, t.id ] } ) %>
 
   <%= f.label :subject_query, "Selected subject(s)" %>
-  <%= f.collection_check_boxes :subject_id, current_user.subjects , :id , :name %>
+  <%= f.select :subject_id, options_from_collection_for_select(current_user.subjects, "id", "name", ), {}, {:size => current_user.subjects.size, :multiple=>true } %>
 
 <% end %>
