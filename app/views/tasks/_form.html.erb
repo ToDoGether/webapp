@@ -39,7 +39,7 @@
 
       <div class="add-nesting">
         <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
-        <%= link_to_add_association 'Add new attachment', form, :attachments, class: "small-padding" %>
+        <%= link_to_add_association 'Add new attachment', form, :attachments %>
       </div>
     </section>
 
@@ -47,7 +47,7 @@
       <h4>Weblinks</h4>
       <%= form.fields_for :weblinks do |weblinks_form| %>
         <div class="nested-fields">
-          <%= weblinks_form.text_field :name, disabled: true %>
+          <%= weblinks_form.text_field :name, disabled: true, class: "small-padding" %>
         </div>
       <% end %>
 
