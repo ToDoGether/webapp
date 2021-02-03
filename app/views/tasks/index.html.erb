@@ -9,10 +9,10 @@
       <% end %>
     </div>
   <% elsif current_user.teams.size == 0 && current_user.tasks != 0 %>
-  <div>
-    <h4>Welcome! 👋🏼</h4>
-    <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
-    <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
+  <div class="welcome">
+    <p class="title">Welcome! 👋🏼</p>
+    <p class="paragraph">Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
+    <p class="paragraph">For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
   </div>
   <% else %>
   <div class="margin celebrate">
