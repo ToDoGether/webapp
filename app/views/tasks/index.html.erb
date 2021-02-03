@@ -30,7 +30,7 @@
   status_next = user_task.status_name(user_task.status_next)
   %>
 <div class="task">
-  <%= link_to 'change_status/' + user_task.id.to_s + "/prev", class: "btn slide left " + status_prev do end %>
+  <%= link_to '/change_status/' + user_task.id.to_s + "/prev", class: "btn slide left " + status_prev do end %>
   <section class="task-content">
     <%= link_to task do %>
       <div class="top">
@@ -54,6 +54,6 @@
       </div>
     <% end %>
   </section>
-  <%= link_to 'change_status/' + user_task.id.to_s + "/next", class: "btn slide right " + status_next do end %>
+  <%= link_to '/change_status/' + user_task.id.to_s + "/next", class: "btn slide right " + status_next do end %>
 </div>
 <% end %>
