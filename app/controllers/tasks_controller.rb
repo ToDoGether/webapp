@@ -12,8 +12,6 @@ class TasksController < ApplicationController
   end
 
   def reset_filter
-    session[:title] = nil
-    session[:description] = nil
     session[:subject] = nil
     session[:team] = nil
     session[:status] = nil
@@ -173,8 +171,6 @@ class TasksController < ApplicationController
   end
 
   def session_vars
-    session[:title] = params[:title] unless params[:title].blank?
-    session[:description] = params[:description] unless params[:description].blank?
     session[:subject] = params[:subject] unless params[:subject].blank?
     session[:team] = params[:team] unless params[:team].blank?
     session[:status] = params[:status] unless params[:status].blank?
@@ -183,8 +179,6 @@ class TasksController < ApplicationController
 
   def apply_filters
     @tasks = current_user.tasks
-                         .filter_by_title(session[:title])
-                         .filter_by_description(session[:description])
                          .filter_by_subject(session[:subject])
                          .filter_by_team(session[:team])
                          .filter_by_fulltext(session[:fulltext])
@@ -205,9 +199,7 @@ class TasksController < ApplicationController
   end
 
   def isset_any_filter?
-    if !session[:title].blank? ||
-       !session[:description].blank? ||
-       !session[:subject].blank? ||
+    if !session[:subject].blank? ||
        !session[:team].blank? ||
        !session[:fulltext].blank?
       true
