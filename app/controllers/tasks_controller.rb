@@ -7,17 +7,58 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
+    session_vars
+    p 'DEBUG'
+    p session
+    p isset_any_filter?
+
     @tasks = current_user.tasks
-                         .filter_by_title(params[:title])
-                         .filter_by_description(params[:description])
-                         .filter_by_subject(params[:subject])
-                         .filter_by_team(params[:team])
-                         .filter_by_status(params[:status])
-                         .filter_by_fulltext(params[:fulltext])
+                         .filter_by_title(session[:title])
+                         .filter_by_description(session[:description])
+                         .filter_by_subject(session[:subject])
+                         .filter_by_team(session[:team])
+                         .filter_by_fulltext(session[:fulltext])
+
+    @tasks = @tasks.filter_by_status(session[:status]) unless isset_any_filter?
 
     @user_tasks = filtered_user_tasks(2) +
                   filtered_user_tasks(1) +
                   filtered_user_tasks(3)
+  end
+
+  def session_vars
+    session[:title] = params[:title] unless params[:title].blank?
+    session[:description] = params[:description] unless params[:description].blank?
+    session[:subject] = params[:subject] unless params[:subject].blank?
+    session[:team] = params[:team] unless params[:team].blank?
+    session[:status] = params[:status] unless params[:status].blank?
+    session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
+  end
+
+  def isset_any_filter?
+    if !session[:title].blank? ||
+       !session[:description].blank? ||
+       !session[:subject].blank? ||
+       !session[:team].blank? ||
+       !session[:fulltext].blank?
+      true
+    else
+      false
+    end
+  end
+
+  def reset_filter
+    session[:title] = nil
+    session[:description] = nil
+    session[:subject] = nil
+    session[:team] = nil
+    session[:status] = nil
+    session[:fulltext] = nil
+
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :no_content }
+    end
   end
 
   def filtered_user_tasks(status)

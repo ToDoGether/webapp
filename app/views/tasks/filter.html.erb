@@ -17,6 +17,7 @@
     <%= f.label :fulltext, "Text filter" %>
     <%= f.text_field :fulltext %>
     <br>
-    <%= f.submit "Apply Filter", class: "btn hoverable"  %>
+    <%= f.submit "Apply Filter", class: "btn hoverable" %>
+    <%= link_to "Clear Filter", "/filter-reset", class: "btn hoverable" %>
   <% end %>
 </div>
