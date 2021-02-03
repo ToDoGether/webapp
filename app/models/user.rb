@@ -20,14 +20,6 @@ class User < ApplicationRecord
     subjects
   end
 
-  def admin_teams
-    teams.where(id: admin_team_ids)
-  end
-
-  def admin_team_ids
-    admin_team_users.map(&:team_id)
-  end
-
   def is_any_admin?
     admin_team_users.any?
   end
@@ -41,6 +33,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def admin_teams
+    teams.where(id: admin_team_users.map(&:team_id))
+  end
 
   def admin_team_users
     team_users.where(is_admin: true)
