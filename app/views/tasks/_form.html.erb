@@ -33,7 +33,7 @@
       <h4>Attachments</h4>
       <%= form.fields_for :attachments do |attachments_form| %>
         <div class="nested-fields">
-          <%= attachments_form.text_field :name, disabled: true, class: "small-padding" %>
+          <%= attachments_form.text_field :filename, disabled: true, class: "small-padding" %>
         </div>
       <% end %>
 
