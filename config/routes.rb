@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/unsubscribe/:id', action: :unsubscribe, controller: 'teams'
   get '/change_status/:id/:direction', action: :change_status, controller: 'tasks'
 
-  get '/filter/', action: :filter, controller: 'tasks'
+  get '/filter', action: :filter, controller: 'tasks'
+  get '/filter-reset', action: :reset_filter, controller: 'tasks'
 
 end

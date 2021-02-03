@@ -7,22 +7,20 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    # @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
-    @tasks = current_user.tasks
-                         .filter_by_title(params[:title])
-                         .filter_by_description(params[:description])
-                         .filter_by_subject(params[:subject])
-                         .filter_by_team(params[:team])
-                         .filter_by_search(params[:search])
-                         .filter_by_status(params[:status])
-                         .filter_by_fulltext(params[:fulltext])
+    session_vars
+    apply_filters
+  end
 
-    @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 1, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 3, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate')
+  def reset_filter
+    session[:subject] = nil
+    session[:team] = nil
+    session[:status] = nil
+    session[:fulltext] = nil
+
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :no_content }
+    end
   end
 
   # GET /change_status/1/prev or /change_status/1/next
@@ -63,9 +61,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
-    unless current_user.has_task?(@task)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.has_task?(@task)
   end
 
   # GET /tasks/new
@@ -83,9 +79,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    unless current_user.is_task_admin?(@task)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.is_task_admin?(@task)
   end
 
   # GET /filter
@@ -173,6 +167,44 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Permission denied.' }
       format.json { head :no_content }
+    end
+  end
+
+  def session_vars
+    session[:subject] = params[:subject] unless params[:subject].blank?
+    session[:team] = params[:team] unless params[:team].blank?
+    session[:status] = params[:status] unless params[:status].blank?
+    session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
+  end
+
+  def apply_filters
+    @tasks = current_user.tasks
+                         .filter_by_subject(session[:subject])
+                         .filter_by_team(session[:team])
+                         .filter_by_fulltext(session[:fulltext])
+
+    # Filtern nach Status nur WENN
+    #   1. KEIN anderer Filter ist ODER
+    #   2. spezieller Status-Filter ausgewählt wurde (NICHT BLANK bzw. DEFAULT)
+    @tasks = @tasks.filter_by_status(session[:status]) if !isset_any_filter? || !session[:status].blank?
+
+    # Changing order of results
+    @user_tasks = filtered_user_tasks(2) +
+                  filtered_user_tasks(1) +
+                  filtered_user_tasks(3)
+  end
+
+  def filtered_user_tasks(status)
+    current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
+  end
+
+  def isset_any_filter?
+    if !session[:subject].blank? ||
+       !session[:team].blank? ||
+       !session[:fulltext].blank?
+      true
+    else
+      false
     end
   end
 end

@@ -3,20 +3,21 @@
 
   <% @page_title = "Filter" %>
 
-  <%= form_with url: '/tasks/', method: :get do |f| %>
+  <%= form_with url: tasks_url, method: :get do |f| %>
 
     <%= f.label :team, "Selected team" %>
-    <%= f.select :team, current_user.teams.collect { |t| t.name }, include_blank: true %>
+    <%= f.select :team, current_user.teams.collect { |t| t.name }, selected: session[:team], include_blank: 'All teams' %>
 
     <%= f.label :subject, "Selected subject" %>
-    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: true %>
+    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, selected: session[:subject], include_blank: 'All subjects' %>
 
     <%= f.label :status, "Selected status" %>
-    <%= f.select :status, [ [ "Todo" , 1 ] , [ "Doing" , 2 ] , [ "Done" , 3 ] ], include_blank: true %>
+    <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], selected: session[:status], include_blank: 'Default status (only open)' %>
 
-    <%= f.label :search, "Text filter (applied on task title and description)" %>
-    <%= f.text_field :search %>
+    <%= f.label :fulltext, "Text filter" %>
+    <%= f.text_field :fulltext, value: session[:fulltext] %>
     <br>
-    <%= f.submit "Apply Filter", class: "btn hoverable"  %>
+    <%= f.submit "Apply Filter", class: "btn hoverable" %>
+    <%= link_to "Clear Filter", "/filter-reset", class: "btn hoverable" %>
   <% end %>
 </div>
