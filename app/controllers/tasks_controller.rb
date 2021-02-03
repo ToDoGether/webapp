@@ -7,22 +7,21 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    # @tasks = Task.filter(params.slice(:title, :description, :subject, :team, :search))
     @tasks = current_user.tasks
                          .filter_by_title(params[:title])
                          .filter_by_description(params[:description])
                          .filter_by_subject(params[:subject])
                          .filter_by_team(params[:team])
-                         .filter_by_search(params[:search])
                          .filter_by_status(params[:status])
                          .filter_by_fulltext(params[:fulltext])
 
-    @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 1, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 3, task_id: @tasks.map(&:id)).includes(:task)
-                              .order('tasks.duedate')
+    @user_tasks = filtered_user_tasks(2) +
+                  filtered_user_tasks(1) +
+                  filtered_user_tasks(3)
+  end
+
+  def filtered_user_tasks(status)
+    current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
@@ -63,9 +62,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
-    unless current_user.has_task?(@task)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.has_task?(@task)
   end
 
   # GET /tasks/new
@@ -83,9 +80,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    unless current_user.is_task_admin?(@task)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.is_task_admin?(@task)
   end
 
   # GET /filter
