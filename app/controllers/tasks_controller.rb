@@ -75,6 +75,7 @@ class TasksController < ApplicationController
     end
 
     @task = Task.new
+    @admin_subjects = current_user.admin_subjects
   end
 
   # GET /tasks/1/edit

@@ -12,7 +12,29 @@ class User < ApplicationRecord
 
   has_many :subjects, -> { order(:name).distinct }, through: :teams
 
+  def admin_subjects
+    subjects = []
+    admin_teams.each do |team|
+      subjects += team.subjects
+    end
+    subjects
+  end
+
+  def admin_teams
+    teams.where(id: admin_team_ids)
+  end
+
+  def admin_team_ids
+    admin_team_users.map(&:team_id)
+  end
+
   def is_any_admin?
-    team_users.where(is_admin: true).any?
+    admin_team_users.any?
+  end
+
+  private
+
+  def admin_team_users
+    team_users.where(is_admin: true)
   end
 end
