@@ -50,7 +50,7 @@
     background-repeat: no-repeat;
   }
 
-  &.state {
+  &.status {
     text-transform: uppercase;
     $height: 2em;
     height: $height;
@@ -82,13 +82,13 @@
   }
 
   &.todo {
-    background-color: $color-state-todo;
+    background-color: $color-status-todo;
   }
   &.doing {
-    background-color: $color-state-doing;
+    background-color: $color-status-doing;
   }
   &.done {
-    background-color: $color-state-done;
+    background-color: $color-status-done;
   }
   &.nostatus {
     background-color: $color-background;
