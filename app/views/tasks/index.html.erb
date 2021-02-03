@@ -36,11 +36,17 @@
       <h4><%= task.name %></h4>
       <div class="bottom">
         <div class="icons">
-          <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
-          <%= image_tag("icons/icon-group.svg", alt: "Working in a group") %>
-          <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
+          <% if(task.weblinks.count > 0) %>
+            <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
+          <% end %>
+          <% if(task.is_groupwork) %>
+            <%= image_tag("icons/icon-group.svg", alt: "Working in a group") %>
+          <% end %>
+          <% if(task.attachments.count > 0) %>
+            <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
+          <% end %>
         </div>
-        <div class="duedate"><%= task.duedate %></div>
+        <div class="duedate"><%= task.formatted_duedate %></div>
       </div>
     <% end %>
   </section>

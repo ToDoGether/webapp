@@ -42,4 +42,8 @@ class Task < ApplicationRecord
   def is_groupwork
     worktype != 1
   end
+
+  def formatted_duedate
+    duedate.strftime("%A, %d.%m.%y")
+  end
 end
