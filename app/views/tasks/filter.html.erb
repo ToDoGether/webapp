@@ -5,7 +5,7 @@
 <%= form_with url: '/tasks/', method: :get do |f| %>
 
   <%= f.label :team, "Selected team" %>
-  <%= f.select :team, current_user.teams.collect { |t| t.name } %>
+  <%= f.select :team, current_user.teams.collect { |t| t.name }, include_blank: true %>
 
   <%= f.label :subject, "Selected subject" %>
   <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: true %>
