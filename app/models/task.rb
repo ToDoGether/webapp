@@ -16,8 +16,18 @@ class Task < ApplicationRecord
   scope :filter_by_search, ->(search) {
     where('"tasks"."name" ilike ? OR "tasks"."description" ilike ?', "%#{search}%", "%#{search}%")
   }
-  scope :filter_by_state, ->(state) { joins(:user_tasks).where('"user_tasks"."status" IN ( ? )', state.to_s) }
-  
+  scope :filter_by_status, ->(status) {
+    status = '1, 2, 3' if status == '' || status.nil?
+    joins(:user_tasks).where("user_tasks.status IN ( #{status} )")
+  }
+  scope :filter_by_fulltext, ->(fulltext) {
+    where("tasks.name ilike '%#{fulltext}%' OR
+           tasks.description ilike '%#{fulltext}%' OR
+           subjects.name ilike '%#{fulltext}%' OR
+           teams.name ilike '%#{fulltext}%'"
+    )
+  }
+
   def get_worktype_name
     case worktype
     when 1

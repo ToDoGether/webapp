@@ -14,10 +14,15 @@ class TasksController < ApplicationController
                          .filter_by_subject(params[:subject])
                          .filter_by_team(params[:team])
                          .filter_by_search(params[:search])
+                         .filter_by_status(params[:status])
+                         .filter_by_fulltext(params[:fulltext])
 
-    @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 1, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate') +
-                  current_user.user_tasks.where(status: 3, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
+    @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task)
+                              .order('tasks.duedate') +
+                  current_user.user_tasks.where(status: 1, task_id: @tasks.map(&:id)).includes(:task)
+                              .order('tasks.duedate') +
+                  current_user.user_tasks.where(status: 3, task_id: @tasks.map(&:id)).includes(:task)
+                              .order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
@@ -49,11 +54,10 @@ class TasksController < ApplicationController
       # Save only if no error!
       if !error && user_task.save
         format.html { redirect_to tasks_url, notice: 'Task status was successfully changed.' }
-        format.json { head :no_content }
       else
         format.html { redirect_to tasks_url, notice: 'Task status change failed.' }
-        format.json { head :no_content }
       end
+      format.json { head :no_content }
     end
   end
 
