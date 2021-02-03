@@ -62,10 +62,10 @@
     background-position: center;
 
     &.left {
-      background-image: url("icons/icon-arrow-left.svg");
+      background-image: image-url("icons/icon-arrow-left.svg");
     }
     &.right {
-      background-image: url("icons/icon-arrow-right.svg");
+      background-image: image-url("icons/icon-arrow-right.svg");
     }
   }
 
@@ -104,10 +104,10 @@ a.btn.block {
       background-repeat: no-repeat;
       position: relative;
       &.filter {
-        background-image: url("icons/icon-filter.svg");
+        background-image: image-url("icons/icon-filter.svg");
       }
       &.search {
-        background-image: url("icons/icon-search.svg");
+        background-image: image-url("icons/icon-search.svg");
       }
     }
   }
