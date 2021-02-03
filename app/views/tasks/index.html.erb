@@ -3,17 +3,21 @@
   <% if @user_tasks.size > 0 %>
     <div id="search-bar">
       <%= form_tag 'tasks', method: "get", id: "form-subscribe" do %>
-        <%= text_field_tag :fulltext, nil, class: "small-padding" %>
-        <%= submit_tag("", class: "btn search") %>
-        <%= link_to "/filter", class: "btn filter" do end %>
+        <%= text_field_tag :fulltext, nil, class: "small-padding", placeholder: "Search Tasks ..." %>
+        <div>
+          <%= submit_tag("", class: "btn search") %>
+        </div>
+        <div>
+          <%= link_to "/filter", class: "btn filter" do end %>
+        </div>
       <% end %>
     </div>
   <% else %>
-  <div>
-    <h4>Welcome! 👋🏼</h4>
-    <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
-    <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
-  </div>
+    <div>
+      <h4>Welcome! 👋🏼</h4>
+      <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
+      <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
+    </div>
   <% end %>
 </div>
 
@@ -26,7 +30,7 @@
   status_next = user_task.status_name(user_task.status_next)
   %>
 <div class="task">
-  <%= link_to 'change_status/' + user_task.id.to_s + "/prev", class: "btn slide left " + status_prev do end %>
+  <%= link_to '/change_status/' + user_task.id.to_s + "/prev", class: "btn slide left " + status_prev do end %>
   <section class="task-content">
     <%= link_to task do %>
       <div class="top">
@@ -50,6 +54,6 @@
       </div>
     <% end %>
   </section>
-  <%= link_to 'change_status/' + user_task.id.to_s + "/next", class: "btn slide right " + status_next do end %>
+  <%= link_to '/change_status/' + user_task.id.to_s + "/next", class: "btn slide right " + status_next do end %>
 </div>
 <% end %>
