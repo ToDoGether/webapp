@@ -8,43 +8,7 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     session_vars
-    p 'DEBUG'
-    p session
-    p isset_any_filter?
-
-    @tasks = current_user.tasks
-                         .filter_by_title(session[:title])
-                         .filter_by_description(session[:description])
-                         .filter_by_subject(session[:subject])
-                         .filter_by_team(session[:team])
-                         .filter_by_fulltext(session[:fulltext])
-
-    @tasks = @tasks.filter_by_status(session[:status]) unless isset_any_filter?
-
-    @user_tasks = filtered_user_tasks(2) +
-                  filtered_user_tasks(1) +
-                  filtered_user_tasks(3)
-  end
-
-  def session_vars
-    session[:title] = params[:title] unless params[:title].blank?
-    session[:description] = params[:description] unless params[:description].blank?
-    session[:subject] = params[:subject] unless params[:subject].blank?
-    session[:team] = params[:team] unless params[:team].blank?
-    session[:status] = params[:status] unless params[:status].blank?
-    session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
-  end
-
-  def isset_any_filter?
-    if !session[:title].blank? ||
-       !session[:description].blank? ||
-       !session[:subject].blank? ||
-       !session[:team].blank? ||
-       !session[:fulltext].blank?
-      true
-    else
-      false
-    end
+    apply_filters
   end
 
   def reset_filter
@@ -59,10 +23,6 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
     end
-  end
-
-  def filtered_user_tasks(status)
-    current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
   end
 
   # GET /change_status/1/prev or /change_status/1/next
@@ -209,6 +169,47 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Permission denied.' }
       format.json { head :no_content }
+    end
+  end
+
+  def session_vars
+    session[:title] = params[:title] unless params[:title].blank?
+    session[:description] = params[:description] unless params[:description].blank?
+    session[:subject] = params[:subject] unless params[:subject].blank?
+    session[:team] = params[:team] unless params[:team].blank?
+    session[:status] = params[:status] unless params[:status].blank?
+    session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
+  end
+
+  def apply_filters
+    @tasks = current_user.tasks
+                         .filter_by_title(session[:title])
+                         .filter_by_description(session[:description])
+                         .filter_by_subject(session[:subject])
+                         .filter_by_team(session[:team])
+                         .filter_by_fulltext(session[:fulltext])
+
+    @tasks = @tasks.filter_by_status(session[:status]) unless isset_any_filter?
+
+    # Changing order of results
+    @user_tasks = filtered_user_tasks(2) +
+                  filtered_user_tasks(1) +
+                  filtered_user_tasks(3)
+  end
+
+  def filtered_user_tasks(status)
+    current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
+  end
+
+  def isset_any_filter?
+    if !session[:title].blank? ||
+       !session[:description].blank? ||
+       !session[:subject].blank? ||
+       !session[:team].blank? ||
+       !session[:fulltext].blank?
+      true
+    else
+      false
     end
   end
 end
