@@ -8,8 +8,10 @@
       <% @teams.each do |team| %>
         <tr>
           <td>
-            <%= link_to edit_team_path(team), class: "show-icon" do %>
-              <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
+            <% if current_user.is_team_admin?(team) %>
+              <%= link_to edit_team_path(team), class: "show-icon" do %>
+                <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
+              <% end %>
             <% end %>
           </td>
           <td><%= link_to team.name, team %></td>

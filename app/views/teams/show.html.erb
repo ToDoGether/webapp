@@ -4,8 +4,9 @@
   <% @page_title = @team.name + " [Team]" %>
 
   <h3>
-    <%# TODO: check permissions %>
-    <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
+    <% if current_user.is_team_admin?(@team) %>
+      <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
+    <% end %>
     <%= @team.name %>
   </h3>
 
