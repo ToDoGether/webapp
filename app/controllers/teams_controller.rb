@@ -114,8 +114,9 @@ class TeamsController < ApplicationController
         name
         _destroy
       ],
-      users_attributes: [
-        :email
+      team_users_attributes: [
+        :id,
+        :is_admin
       ]
     )
   end

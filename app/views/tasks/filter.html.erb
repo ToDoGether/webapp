@@ -10,7 +10,7 @@
   <%= f.label :subject, "Selected subject" %>
   <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: true %>
 
-  <%= f.label :status, "Selected state" %>
+  <%= f.label :status, "Selected status" %>
   <%= f.select :status, [ [ "Todo" , 1 ] , [ "Doing" , 2 ] , [ "Done" , 3 ] ], include_blank: true %>
 
   <%= f.label :search, "Text filter (applied on task title and description)" %>
