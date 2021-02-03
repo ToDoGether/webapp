@@ -48,8 +48,8 @@ Subject.create!([
   {name: "Multimediaprojekt 2", team_id: 3}
 ])
 Task.create!([
-  {name: "Prototyp Design", duedate: "2021-02-02 00:00:00", worktype: 1, description: "Erstellen Sie einen Prototypen in Adobe XD oder Figma", subject_id: 12},
-  {name: "QTFM Konzept", duedate: "2021-02-05 00:00:00", worktype: 0, description: "Erstellen sie ein Forschungskonzept basierend auf Ihrer Forschungsfrage in qualitative Forschungsmethoden.", subject_id: 1}
+  {name: "Prototyp Design", duedate: "2021-02-02", worktype: 1, description: "Erstellen Sie einen Prototypen in Adobe XD oder Figma", subject_id: 12},
+  {name: "QTFM Konzept", duedate: "2021-02-05", worktype: 0, description: "Erstellen sie ein Forschungskonzept basierend auf Ihrer Forschungsfrage in qualitative Forschungsmethoden.", subject_id: 1}
 ])
 UserTask.create!([
   {task_id: 1, user_id: 1, status: 1},
