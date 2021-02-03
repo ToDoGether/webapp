@@ -117,6 +117,8 @@ a.btn.block {
 
       &.filter {
         background-image: image-url("icons/icon-filter.svg");
+        background-color: $color-white;
+        border:1px solid $color-background-button;
       }
       &.search {
         background-image: image-url("icons/icon-search.svg");
