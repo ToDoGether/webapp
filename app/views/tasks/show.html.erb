@@ -39,14 +39,16 @@
   <div>
     <h5>Attachments</h5>
     <% @task.attachments.each do |attachment| %>
-      <%= attachment.name %>
+      <%= image_tag("icons/icon-attachment.svg", alt: "Attachment " + attachment.filename) %>
+      <%= link_to attachment.filename, attachment.filename %>
     <% end %>
   </div>
 
   <div>
     <h5>Weblinks</h5>
     <% @task.weblinks.each do |link| %>
-      <%= link.name %>
+      <%= image_tag("icons/icon-weblink.svg", alt: "Weblink to " + link.name) %>
+      <%= link_to link.name, link.url %>
     <% end %>
   </div>
 </div>
