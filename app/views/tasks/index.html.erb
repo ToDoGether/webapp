@@ -24,8 +24,6 @@
         </div>
       <% end %>
     </div>
-    <% p @user_tasks %>
-    <% p @isset_any_filter %>
     <% if @user_tasks.size == 0 %>
       <% if !current_user.tasks.filter_by_status(nil).any? %>
         <div class="margin celebrate">

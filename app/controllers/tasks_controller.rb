@@ -189,7 +189,10 @@ class TasksController < ApplicationController
                          .filter_by_team(session[:team])
                          .filter_by_fulltext(session[:fulltext])
 
-    @tasks = @tasks.filter_by_status(session[:status]) unless isset_any_filter?
+    # Filtern nach Status nur WENN
+    #   1. KEIN anderer Filter ist ODER
+    #   2. spezieller Status-Filter ausgewählt wurde (NICHT BLANK bzw. DEFAULT)
+    @tasks = @tasks.filter_by_status(session[:status]) if !isset_any_filter? || !session[:status].blank?
 
     # Changing order of results
     @user_tasks = filtered_user_tasks(2) +
