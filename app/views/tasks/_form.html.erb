@@ -32,9 +32,7 @@
     <section class="nesting">
       <h4>Attachments</h4>
       <%= form.fields_for :attachments do |attachments_form| %>
-        <div class="nested-fields">
-          <%= attachments_form.text_field :filename, disabled: true, class: "small-padding" %>
-        </div>
+          <%= render 'attachment_fields', f: attachments_form %>
       <% end %>
 
       <div class="add-nesting">
@@ -46,9 +44,7 @@
     <section class="nesting">
       <h4>Weblinks</h4>
       <%= form.fields_for :weblinks do |weblinks_form| %>
-        <div class="nested-fields">
-          <%= weblinks_form.text_field :name, disabled: true, class: "small-padding" %>
-        </div>
+          <%= render 'weblink_fields', f: weblinks_form %>
       <% end %>
 
       <div class="add-nesting">

@@ -2,7 +2,8 @@
   <%= link_to_remove_association f, class: "show-icon" do %>
     <%= image_tag("icons/icon-delete.svg", alt: "remove weblink") %>
   <% end %>
-
-  <%= f.text_field :name, placeholder: "Name", class: "small-padding" %>
-  <%= f.text_field :url, placeholder: "URL", class: "small-padding" %>
+  <div>
+    <%= f.text_field :name, placeholder: "Name", class: "small-padding" %>
+    <%= f.text_field :url, placeholder: "URL", class: "small-padding" %>
+  </div>
 </div>
