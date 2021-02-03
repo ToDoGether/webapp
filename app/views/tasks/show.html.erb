@@ -4,11 +4,13 @@
   <% @page_title = @task.name + " [Task]" %>
 
   <h4>
-    <%# TODO: check permissions %>
-    <%= link_to edit_task_path(@task) do %><%= image_tag("icons/icon-edit.svg", alt: "edit task") %><% end %>
+    <% if current_user.is_task_admin?(@task) %>
+      <%= link_to edit_task_path(@task) do %><%= image_tag("icons/icon-edit.svg", alt: "edit task") %><% end %>
+    <% end %>
     <%= @task.name %>
-    <%# TODO: check permissions %>
-    <%= link_to @task, method: :delete, data: { confirm: 'Are you sure?' } do %><%= image_tag("icons/icon-delete.svg", alt: "delete task") %><% end %>
+    <% if current_user.is_task_admin?(@task) %>
+      <%= link_to @task, method: :delete, data: { confirm: 'Are you sure?' } do %><%= image_tag("icons/icon-delete.svg", alt: "delete task") %><% end %>
+    <% end %>
   </h4>
 
   <div style="color: <%= @task.subject.color %>" class="subject">
