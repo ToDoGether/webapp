@@ -16,7 +16,7 @@
     <%= form.text_field :name, placeholder: "Enter task name" %>
 
     <%= form.label :subject_id %>
-    <%= form.select :subject_id, current_user.subjects.collect { |s| [ s.name , s.id ] } %>
+    <%= form.select :subject_id, current_user.admin_subjects.collect { |s| [ s.name , s.id ] } %>
 
     <%= form.label :duedate %>
     <div class="dateselect">

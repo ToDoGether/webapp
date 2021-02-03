@@ -11,4 +11,34 @@ class User < ApplicationRecord
   has_many :tasks, through: :user_tasks
 
   has_many :subjects, -> { order(:name).distinct }, through: :teams
+
+  def admin_subjects
+    subjects = []
+    admin_teams.each do |team|
+      subjects += team.subjects
+    end
+    subjects
+  end
+
+  def is_any_admin?
+    admin_team_users.any?
+  end
+
+  def is_team_admin?(team)
+    admin_teams.include?(team)
+  end
+
+  def is_task_admin?(task)
+    is_team_admin?(task.subject.team)
+  end
+
+  private
+
+  def admin_teams
+    teams.where(id: admin_team_users.map(&:team_id))
+  end
+
+  def admin_team_users
+    team_users.where(is_admin: true)
+  end
 end
