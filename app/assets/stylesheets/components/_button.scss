@@ -38,18 +38,6 @@
     width: 100%;
   }
 
-  &.filter {
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 0;
-    border-radius: 100%;
-    padding: 0;
-    background-image: url("icons/icon-filter.svg");
-    background-size: auto;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
   &.state {
     text-transform: uppercase;
     $height: 2em;
@@ -98,4 +86,29 @@
 
 a.btn.block {
   width: auto;
+}
+
+#search-bar {
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 0;
+      border-radius: 100%;
+      padding: 0;
+      background-size: auto;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      &.filter {
+        background-image: url("icons/icon-filter.svg");
+      }
+      &.search {
+        background-image: url("icons/icon-search.svg");
+      }
+    }
+  }
 }

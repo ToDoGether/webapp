@@ -1,20 +1,22 @@
-<p id="notice"><%= notice %></p>
+<div class="margin">
+  <p id="notice"><%= notice %></p>
 
-<% @page_title = "Filter" %>
+  <% @page_title = "Filter" %>
 
-<%= form_with url: '/tasks/', method: :get do |f| %>
+  <%= form_with url: '/tasks/', method: :get do |f| %>
 
-  <%= f.label :team, "Selected team" %>
-  <%= f.select :team, current_user.teams.collect { |t| t.name }, include_blank: true %>
+    <%= f.label :team, "Selected team" %>
+    <%= f.select :team, current_user.teams.collect { |t| t.name }, include_blank: true %>
 
-  <%= f.label :subject, "Selected subject" %>
-  <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: true %>
+    <%= f.label :subject, "Selected subject" %>
+    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: true %>
 
-  <%= f.label :status, "Selected state" %>
-  <%= f.select :status, [ [ "Todo" , 1 ] , [ "Doing" , 2 ] , [ "Done" , 3 ] ], include_blank: true %>
+    <%= f.label :status, "Selected state" %>
+    <%= f.select :status, [ [ "Todo" , 1 ] , [ "Doing" , 2 ] , [ "Done" , 3 ] ], include_blank: true %>
 
-  <%= f.label :search, "Text filter (applied on task title and description)" %>
-  <%= f.text_field :search %>
-
-  <%= f.submit "Apply Filter", class: "btn hoverable"  %>
-<% end %>
+    <%= f.label :search, "Text filter (applied on task title and description)" %>
+    <%= f.text_field :search %>
+    <br>
+    <%= f.submit "Apply Filter", class: "btn hoverable"  %>
+  <% end %>
+</div>

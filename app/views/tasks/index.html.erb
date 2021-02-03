@@ -1,20 +1,22 @@
 <div class="margin">
   <p id="notice"><%= notice %></p>
+  <% if @user_tasks.size > 0 %>
+    <div id="search-bar">
+      <%= form_tag 'tasks', method: "get", id: "form-subscribe" do %>
+        <%= text_field_tag :fulltext, nil, class: "small-padding" %>
+        <%= submit_tag("", class: "btn search") %>
+        <%= link_to "/filter", class: "btn filter" do end %>
+      <% end %>
+    </div>
+  <% else %>
+  <div>
+    <h4>Welcome! 👋🏼</h4>
+    <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
+    <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
+  </div>
+  <% end %>
 </div>
-<% if @user_tasks.size > 0 %>
-<a href="/filter" class="btn filter" style="position: absolute; bottom: 10vh; right: 55vw;">
-<% else %>
-<style>
-  h4, p {
-    margin-left: 15px;
-  }
-</style>
-<div class="welcome">
-  <h4>Welcome! 👋🏼</h4>
-  <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
-  <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
-</div>
-<% end %>
+
 <% @page_title = "Tasks" %>
 
 <% @user_tasks.each do |user_task|

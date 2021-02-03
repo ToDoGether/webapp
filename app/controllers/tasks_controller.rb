@@ -15,6 +15,7 @@ class TasksController < ApplicationController
                          .filter_by_team(params[:team])
                          .filter_by_search(params[:search])
                          .filter_by_status(params[:status])
+                         .filter_by_fulltext(params[:fulltext])
 
     @user_tasks = current_user.user_tasks.where(status: 2, task_id: @tasks.map(&:id)).includes(:task)
                               .order('tasks.duedate') +

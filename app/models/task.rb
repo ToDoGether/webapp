@@ -20,6 +20,13 @@ class Task < ApplicationRecord
     status = '1, 2, 3' if status == '' || status.nil?
     joins(:user_tasks).where("user_tasks.status IN ( #{status} )")
   }
+  scope :filter_by_fulltext, ->(fulltext) {
+    where("tasks.name ilike '%#{fulltext}%' OR
+           tasks.description ilike '%#{fulltext}%' OR
+           subjects.name ilike '%#{fulltext}%' OR
+           teams.name ilike '%#{fulltext}%'"
+    )
+  }
 
   def get_worktype_name
     case worktype
