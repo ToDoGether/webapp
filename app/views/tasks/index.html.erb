@@ -1,5 +1,5 @@
 <div class="margin">
-  <p id="notice"><%= notice %></p>
+  <div class="notice"><p id="notice"><%= notice %></p></div>
   <% if @user_tasks.size > 0 %>
     <div id="search-bar">
       <%= form_tag 'tasks', method: "get", id: "form-subscribe" do %>
@@ -12,12 +12,24 @@
         </div>
       <% end %>
     </div>
+  <% elsif current_user.teams.size == 0 && current_user.tasks != 0 %>
+  <div class="welcome">
+    <p class="title">Welcome! 👋🏼</p>
+    <p class="paragraph">Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
+    <p class="paragraph">For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
+    <%= render "teams/subscribe" %>
+    <%= label_tag "Create a Team" %>
+    <%= link_to "Create", new_team_path, id: "create-team", class: "btn hoverable block" %>
+  </div>
   <% else %>
-    <div>
-      <h4>Welcome! 👋🏼</h4>
-      <p>Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
-      <p>For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
-    </div>
+  <div class="margin celebrate">
+    <p class="emojis">🥳🎉</p>
+    <p class="text">Time to celebrate ...</p>
+    <p class="emojis">😎🌴</p>
+    <p class="text">... or time to relax!</p>
+    <p class="emojis">✅✅✅</p>
+    <p class="text">You're done with all your tasks!</p>
+  </div>
   <% end %>
 </div>
 
