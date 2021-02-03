@@ -43,12 +43,14 @@
           </thead>
           <tbody class='fields'>
             <%= form.fields_for :team_users do |f| %>
-              <td>
-                <div class="stretch">
-                  <%= f.email_field :email, label: false, disabled: true, class: "small-padding" %>
-                </div>
-              </td>
-              <td><%= f.check_box :is_admin, label: false %></td>
+              <tr>
+                <td>
+                  <div class="stretch">
+                    <%= f.email_field :email, label: false, disabled: true, class: "small-padding" %>
+                  </div>
+                </td>
+                <td><%= f.check_box :is_admin, label: false %></td>
+              </tr>
             <% end %>
           </tbody>
         </table>
