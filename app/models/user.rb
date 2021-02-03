@@ -32,6 +32,14 @@ class User < ApplicationRecord
     is_team_admin?(task.subject.team)
   end
 
+  def has_team?(team)
+    teams.include?(team)
+  end
+
+  def has_task?(task)
+    has_team?(task.subject.team)
+  end
+
   private
 
   def admin_teams

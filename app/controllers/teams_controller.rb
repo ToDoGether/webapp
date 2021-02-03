@@ -7,7 +7,11 @@ class TeamsController < ApplicationController
   end
 
   # GET /teams/1 or /teams/1.json
-  def show; end
+  def show
+    unless current_user.has_team?(@team)
+      redirect_permission_denied
+    end
+  end
 
   # GET /subscribe
   def subscribe
@@ -17,13 +21,11 @@ class TeamsController < ApplicationController
       if @team.nil?
         format.html { redirect_to teams_url, notice: 'Team not found.' }
         format.json { render json: 'Team not found.', status: :unprocessable_entity }
-      elsif @team.users.include?(current_user)
+      elsif current_user.has_team?(@team)
         format.html { redirect_to teams_url, notice: 'User is already subscribed.' }
         format.json { render json: 'User is already subscribed.', status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
-
         fill_user_tasks(@team, current_user)
-
         format.html { redirect_to @team, notice: 'Successfully subscribed to team.' }
         format.json { render :show, status: :created, location: @team }
       else
@@ -38,10 +40,8 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
 
     respond_to do |format|
-      if @team.users.include?(current_user) && remove_team_user(@team.id, current_user.id)
-
+      if current_user.has_team?(@team) && remove_team_user(@team.id, current_user.id)
         remove_user_tasks(@team, current_user)
-
         format.html { redirect_to teams_url, notice: 'Successfully unsubscribed.' }
         format.json { head :no_content }
       else
@@ -57,7 +57,11 @@ class TeamsController < ApplicationController
   end
 
   # GET /teams/1/edit
-  def edit; end
+  def edit
+    unless current_user.is_team_admin?(@team)
+      redirect_permission_denied
+    end
+  end
 
   # POST /teams or /teams.json
   def create
@@ -78,6 +82,11 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
+    unless current_user.is_team_admin?(@team)
+      redirect_permission_denied
+      return
+    end
+
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
@@ -91,6 +100,11 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1 or /teams/1.json
   def destroy
+    unless current_user.is_team_admin?(@team)
+      redirect_permission_denied
+      return
+    end
+
     @team.destroy
     respond_to do |format|
       format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
@@ -114,9 +128,9 @@ class TeamsController < ApplicationController
         name
         _destroy
       ],
-      team_users_attributes: [
-        :id,
-        :is_admin
+      team_users_attributes: %i[
+        id
+        is_admin
       ]
     )
   end
@@ -155,6 +169,13 @@ class TeamsController < ApplicationController
       subject.tasks.each do |task|
         UserTask.find_by(task_id: task.id, user_id: user.id).destroy
       end
+    end
+  end
+
+  def redirect_permission_denied
+    respond_to do |format|
+      format.html { redirect_to teams_url, notice: 'Permission denied.' }
+      format.json { head :no_content }
     end
   end
 end

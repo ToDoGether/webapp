@@ -62,7 +62,11 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1 or /tasks/1.json
-  def show; end
+  def show
+    unless current_user.has_task?(@task)
+      redirect_permission_denied
+    end
+  end
 
   # GET /tasks/new
   def new
@@ -78,7 +82,11 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit; end
+  def edit
+    unless current_user.is_task_admin?(@task)
+      redirect_permission_denied
+    end
+  end
 
   # GET /filter
   def filter; end
@@ -102,6 +110,11 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
+    unless current_user.is_task_admin?(@task)
+      redirect_permission_denied
+      return
+    end
+
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
@@ -115,6 +128,11 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    unless current_user.is_task_admin?(@task)
+      redirect_permission_denied
+      return
+    end
+
     delete_from_user_tasks(@task.id)
     @task.destroy
     respond_to do |format|
@@ -149,5 +167,12 @@ class TasksController < ApplicationController
 
   def delete_from_user_tasks(task_id)
     UserTask.where(task_id: task_id).destroy_all
+  end
+
+  def redirect_permission_denied
+    respond_to do |format|
+      format.html { redirect_to tasks_url, notice: 'Permission denied.' }
+      format.json { head :no_content }
+    end
   end
 end
