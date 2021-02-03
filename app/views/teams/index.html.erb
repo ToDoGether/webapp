@@ -18,11 +18,7 @@
     </tbody>
   </table>
 
-  <%= form_tag 'subscribe', method: "get", id: "form-subscribe" do %>
-    <%= label_tag(:team, "Subscribe to a team") %>
-    <%= text_field_tag :team, nil, class: "small-padding" %>
-    <%= submit_tag("Subscribe", class: "btn hoverable block") %>
-  <% end %>
+  <%= render "subscribe" %>
 
   <%= link_to new_team_path do %>
     <h4>Create a new team</h4>
