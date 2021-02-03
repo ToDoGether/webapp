@@ -31,7 +31,7 @@
     <%= link_to task do %>
       <div class="top">
         <div style="color: <%= task.subject.color %>" class="subject"><%= task.subject.name %></div>
-        <button class="btn state <%= status_current %>"><%= status_current %></button>
+        <button class="btn status <%= status_current %>"><%= status_current %></button>
       </div>
       <h4><%= task.name %></h4>
       <div class="bottom">

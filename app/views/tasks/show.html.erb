@@ -18,7 +18,7 @@
   <div>
     <h5>Current status</h5>
     <% user_task = current_user.user_tasks.find_by(task_id: @task.id) %>
-    <button class="btn state <%= user_task.status_name %>"><%= user_task.status_name %></button>
+    <button class="btn status <%= user_task.status_name %>"><%= user_task.status_name %></button>
   </div>
 
   <div>
