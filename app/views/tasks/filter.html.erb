@@ -6,16 +6,16 @@
   <%= form_with url: tasks_url, method: :get do |f| %>
 
     <%= f.label :team, "Selected team" %>
-    <%= f.select :team, current_user.teams.collect { |t| t.name }, include_blank: 'All teams' %>
+    <%= f.select :team, current_user.teams.collect { |t| t.name }, selected: session[:team], include_blank: 'All teams' %>
 
     <%= f.label :subject, "Selected subject" %>
-    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, include_blank: 'All subjects' %>
+    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, selected: session[:subject], include_blank: 'All subjects' %>
 
     <%= f.label :status, "Selected status" %>
-    <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], include_blank: 'Default status (only open)' %>
+    <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], selected: session[:status], include_blank: 'Default status (only open)' %>
 
     <%= f.label :fulltext, "Text filter" %>
-    <%= f.text_field :fulltext %>
+    <%= f.text_field :fulltext, value: session[:fulltext] %>
     <br>
     <%= f.submit "Apply Filter", class: "btn hoverable" %>
     <%= link_to "Clear Filter", "/filter-reset", class: "btn hoverable" %>

@@ -15,7 +15,7 @@
   <% else %>
     <div id="search-bar">
       <%= form_tag 'tasks', method: "get", id: "form-subscribe" do %>
-        <%= text_field_tag :fulltext, nil, class: "small-padding", placeholder: "Search Tasks ..." %>
+        <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search Tasks ..." %>
         <div>
           <%= submit_tag("", class: "btn search") %>
         </div>
