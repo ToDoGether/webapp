@@ -16,6 +16,8 @@ class TasksController < ApplicationController
     session[:team] = nil
     session[:status] = nil
     session[:fulltext] = nil
+    session[:duedate_min] = nil
+    session[:duedate_max] = nil
 
     respond_to do |format|
       format.html { redirect_to tasks_url }
@@ -189,6 +191,8 @@ class TasksController < ApplicationController
     session[:team] = params[:team] unless params[:team].blank?
     session[:status] = params[:status] unless params[:status].blank?
     session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
+    session[:duedate_min] = params[:duedate_min] unless params[:duedate_min].blank?
+    session[:duedate_max] = params[:duedate_max] unless params[:duedate_max].blank?
   end
 
   def apply_filters
@@ -196,6 +200,8 @@ class TasksController < ApplicationController
                          .filter_by_subject(session[:subject])
                          .filter_by_team(session[:team])
                          .filter_by_fulltext(session[:fulltext])
+                         .filter_by_duedate_min(session[:duedate_min])
+                         .filter_by_duedate_max(session[:duedate_max])
 
     # Filtern nach Status nur WENN
     #   1. KEIN anderer Filter ist ODER
