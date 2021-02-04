@@ -4,8 +4,7 @@ class Task < ApplicationRecord
   has_many :users, through: :user_tasks
   belongs_to :subject
 
-  has_many :attachments
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  has_many_attached :attachment
   has_many :weblinks
   accepts_nested_attributes_for :weblinks, :allow_destroy => true
 
