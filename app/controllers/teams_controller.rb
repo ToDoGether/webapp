@@ -126,6 +126,7 @@ class TeamsController < ApplicationController
       subjects_attributes: %i[
         id
         name
+        color
         _destroy
       ],
       team_users_attributes: %i[
