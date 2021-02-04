@@ -1,0 +1,14 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the ActionText (trix) component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/_abstracts-dir";
+
+trix {
+  &-toolbar {
+    background-color: $color-white;
+  }
+
+  &-editor {
+    background-color: $color-white;
+  }
+}
