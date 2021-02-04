@@ -27,18 +27,11 @@ class Task < ApplicationRecord
   }
 
   def get_worktype_name
-    case worktype
-    when 1
-      "Single"
-    when 2
-      "Group"
-    else
-      "Other"
-    end
+    worktype ? "Together in a group" : "On your own"
   end
 
   def is_groupwork
-    worktype != 1
+    worktype == true
   end
 
   def formatted_duedate
