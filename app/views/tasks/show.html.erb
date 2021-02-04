@@ -43,7 +43,7 @@
     <% @task.attachments.each do |attachment| %>
       <div>
         <%= image_tag("icons/icon-attachment.svg", alt: "Attachment " + attachment.filename.to_s) %>
-        <%= link_to attachment.filename.to_s, url_for(attachment) %>
+        <%= link_to attachment.filename.to_s, url_for(attachment), target: "_blank" %>
       </div>
     <% end %>
   </div>
