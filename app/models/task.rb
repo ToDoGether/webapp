@@ -9,6 +9,9 @@ class Task < ApplicationRecord
   has_many :weblinks
   accepts_nested_attributes_for :weblinks, :allow_destroy => true
 
+  validates :name, presence: true
+  validates :duedate, presence: true
+
   scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
   scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
   scope :filter_by_status, ->(status) {
@@ -19,7 +22,6 @@ class Task < ApplicationRecord
   scope :filter_by_fulltext, ->(fulltext) {
     where(
       "tasks.name ilike '%#{fulltext}%' OR
-      tasks.description ilike '%#{fulltext}%' OR
       subjects.name ilike '%#{fulltext}%' OR
       teams.name ilike '%#{fulltext}%'"
     )
