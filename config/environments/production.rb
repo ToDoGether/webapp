@@ -121,4 +121,7 @@ Rails.application.configure do
   # Set active storage service according to https://guides.rubyonrails.org/active_storage_overview.html
   # Store files locally.
   config.active_storage.service = :local
+
+  # Fix for mailer
+  config.action_mailer.default_url_options = { host: 'todogether.projects.multimediatechnology.at' }
 end
