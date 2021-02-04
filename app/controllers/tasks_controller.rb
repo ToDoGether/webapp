@@ -89,7 +89,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    @task.attachments.attach(params[:attachments])
+    # @task.attachments.attach(params[:attachment])
 
     respond_to do |format|
       if @task.save
