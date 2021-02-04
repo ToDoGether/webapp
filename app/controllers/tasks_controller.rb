@@ -144,7 +144,25 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:name, :subject_id, :subject, :duedate, :worktype, :description)
+    params.require(:task).permit(
+      :name,
+      :subject_id,
+      :subject,
+      :duedate,
+      :worktype,
+      :description,
+      attachments_attributes: %i[
+        id
+        filename
+        _destroy
+      ],
+      weblinks_attributes: %i[
+        id
+        name
+        url
+        _destroy
+      ]
+    )
   end
 
   def fill_user_tasks(task)

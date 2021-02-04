@@ -5,9 +5,9 @@ class Task < ApplicationRecord
   belongs_to :subject
 
   has_many :attachments
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
   has_many :weblinks
-  accepts_nested_attributes_for :weblinks
+  accepts_nested_attributes_for :weblinks, :allow_destroy => true
 
   # scope :filter_by_title, ->(title) { where('"tasks"."name" ilike ?', "%#{title}%")}
   # scope :filter_by_description, ->(description) { where('"tasks"."description" ilike ?', "%#{description}%") }

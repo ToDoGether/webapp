@@ -18,9 +18,7 @@
     <section class="nesting">
       <h4>Subjects</h4>
       <%= form.fields_for :subjects do |subjects_form| %>
-        <div class="nested-fields">
-          <%= subjects_form.text_field :name, disabled: true, class: "small-padding" %>
-        </div>
+        <%= render 'subject_fields', f: subjects_form %>
       <% end %>
 
       <div class="add-nesting">
