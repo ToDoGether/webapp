@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   has_many :user_tasks
   has_many :users, through: :user_tasks
   belongs_to :subject
+  has_rich_text :description
 
   has_many_attached :attachments
   has_many :weblinks
