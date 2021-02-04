@@ -14,6 +14,14 @@
     <%= f.label :status, "Selected status" %>
     <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], selected: session[:status], include_blank: 'Default status (only open)' %>
 
+    <%= f.label :duedate_min, "Due date" %>
+    <div class="filter-duedate">
+      <p>from</p>
+      <%= f.date_field :duedate_min, value: session[:duedate_min] %>
+      <p>to</p>
+      <%= f.date_field :duedate_max, value: session[:duedate_max] %>
+    </div>
+
     <%= f.label :fulltext, "Text filter" %>
     <%= f.text_field :fulltext, value: session[:fulltext] %>
     <br>

@@ -16,12 +16,18 @@ class Task < ApplicationRecord
     joins(:user_tasks).where("user_tasks.status IN ( #{status} )")
   }
   scope :filter_by_fulltext, ->(fulltext) {
-    where("tasks.name ilike '%#{fulltext}%' OR
-           tasks.description ilike '%#{fulltext}%' OR
-           subjects.name ilike '%#{fulltext}%' OR
-           teams.name ilike '%#{fulltext}%'"
+    where(
+      "tasks.name ilike '%#{fulltext}%' OR
+      tasks.description ilike '%#{fulltext}%' OR
+      subjects.name ilike '%#{fulltext}%' OR
+      teams.name ilike '%#{fulltext}%'"
     )
   }
+  scope :filter_by_duedate_min, ->(duedate) {
+    duedate = Date.today - 14 if duedate.blank?
+    where('"tasks"."duedate" > ?', "#{duedate}") unless duedate.nil?
+  }
+  scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', "#{duedate}") unless duedate.nil? }
 
   def get_worktype_name
     worktype ? "Together in a group" : "On your own"
