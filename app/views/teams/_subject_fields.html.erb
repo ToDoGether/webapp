@@ -1,5 +1,7 @@
 <div class="nested-fields">
-  <%= link_to_remove_association f, class: "show-icon" do %>
+  <% classes = "show-icon"%>
+  <% classes += " hide" if f.object.tasks.any? %>
+  <%= link_to_remove_association f, class: classes do %>
     <%= image_tag("icons/icon-delete.svg", alt: "remove subject") %>
   <% end %>
 
