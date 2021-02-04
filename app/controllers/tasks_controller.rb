@@ -66,7 +66,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    unless current_user.is_any_admin?
+    unless current_user.admin_teams.any?
       respond_to do |format|
         format.html { redirect_to tasks_url, notice: 'Task can only be created when you are team admin.' }
         format.json { head :no_content }

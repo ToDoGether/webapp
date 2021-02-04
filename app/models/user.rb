@@ -4,25 +4,26 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # team_users
   has_many :team_users
+  has_many :admin_team_users, -> { where is_admin: true }, class_name: 'TeamUser'
+
+  # teams
   has_many :teams, through: :team_users
+  has_many :admin_teams,
+           through: :admin_team_users,
+           class_name: 'Team',
+           source: :team
 
-  has_many :user_tasks
-  has_many :tasks, through: :user_tasks
-
+  # subjects
   has_many :subjects, -> { order(:name).distinct }, through: :teams
+  has_many :admin_subjects, -> { order(:name).distinct }, through: :admin_teams, source: :subjects
 
-  def admin_subjects
-    subjects = []
-    admin_teams.each do |team|
-      subjects += team.subjects
-    end
-    subjects
-  end
+  # user_tasks
+  has_many :user_tasks
 
-  def is_any_admin?
-    admin_team_users.any?
-  end
+  # tasks
+  has_many :tasks, through: :user_tasks
 
   def is_team_admin?(team)
     admin_teams.include?(team)
@@ -38,15 +39,5 @@ class User < ApplicationRecord
 
   def has_task?(task)
     has_team?(task.subject.team)
-  end
-
-  private
-
-  def admin_teams
-    teams.where(id: admin_team_users.map(&:team_id))
-  end
-
-  def admin_team_users
-    team_users.where(is_admin: true)
   end
 end
