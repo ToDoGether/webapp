@@ -12,3 +12,6 @@ import "@oddcamp/cocoon-vanilla-js";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+require("trix")
+require("@rails/actiontext")
