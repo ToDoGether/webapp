@@ -52,7 +52,7 @@
   %>
 <div class="task">
   <%= link_to '/change_status/' + user_task.id.to_s + "/prev", class: "btn slide left " + status_prev do end %>
-  <section class="task-content">
+  <section class="task-content <%= status_current %>">
     <%= link_to task do %>
       <div class="top">
         <div style="color: <%= task.subject.color %>" class="subject"><%= task.subject.name %></div>
