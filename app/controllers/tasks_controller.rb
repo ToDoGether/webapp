@@ -89,7 +89,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    @task.attachments.attach(params[:attachment])
+    @task.attachments.attach(params[:attachments])
 
     respond_to do |format|
       if @task.save
@@ -153,7 +153,7 @@ class TasksController < ApplicationController
       :duedate,
       :worktype,
       :description,
-      attachment: [],
+      attachments: [],
       weblinks_attributes: %i[
         id
         name
