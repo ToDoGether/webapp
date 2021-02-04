@@ -4,13 +4,10 @@ class Task < ApplicationRecord
   has_many :users, through: :user_tasks
   belongs_to :subject
 
-  has_many :attachments
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  has_many_attached :attachments
   has_many :weblinks
   accepts_nested_attributes_for :weblinks, :allow_destroy => true
 
-  # scope :filter_by_title, ->(title) { where('"tasks"."name" ilike ?', "%#{title}%")}
-  # scope :filter_by_description, ->(description) { where('"tasks"."description" ilike ?', "%#{description}%") }
   scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
   scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
   scope :filter_by_status, ->(status) {

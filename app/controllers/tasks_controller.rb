@@ -151,11 +151,7 @@ class TasksController < ApplicationController
       :duedate,
       :worktype,
       :description,
-      attachments_attributes: %i[
-        id
-        filename
-        _destroy
-      ],
+      attachments: [],
       weblinks_attributes: %i[
         id
         name
