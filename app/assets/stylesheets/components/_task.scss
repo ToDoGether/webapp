@@ -7,6 +7,10 @@
     font-family: $roboto;
     font-weight: bold;
     text-transform: uppercase;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .task {
@@ -21,6 +25,7 @@
     }
 
     .task-content {
+        min-width: 0;
         width: 100%;
         padding: 0.75rem;
         background-color: $color-background-tasks;
@@ -30,6 +35,9 @@
         .duedate {
             font-weight: lighter;
             font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;        
         }
 
         .icons > img {
