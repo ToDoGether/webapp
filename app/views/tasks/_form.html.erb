@@ -27,7 +27,9 @@
     <%= form.check_box :worktype %>
 
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <div class="description-editor">
+      <%= form.rich_text_area :description %>
+    </div>
 
     <section class="nesting">
       <h4>Attachments</h4>
