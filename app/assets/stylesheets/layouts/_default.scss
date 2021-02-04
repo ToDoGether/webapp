@@ -33,8 +33,8 @@ body {
     overflow: scroll;
 
     // Hide scrollbar
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
       display: none;
     }
@@ -64,7 +64,7 @@ body {
       a {
         display: contents;
         img {
-          border: 1px rgba(255,255,255,0.5) solid;
+          border: 1px rgba(255, 255, 255, 0.5) solid;
         }
       }
 
