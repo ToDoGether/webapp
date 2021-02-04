@@ -16,8 +16,14 @@
     width: fit-content;
     height: 100%;
 
-    h1 {
+    .side-top {
         margin: 2rem;
+        text-align: center;
+        text-decoration: none;
+
+        img {
+            border: 1px rgba(255,255,255,0.5) solid;
+        }
     }
 
     nav {
