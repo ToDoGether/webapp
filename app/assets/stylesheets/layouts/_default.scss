@@ -27,15 +27,14 @@ body {
     grid-area: main;
     display: flex;
     flex-direction: column;
-    padding-top: 1rem;
     width: 100%;
     max-width: $tablet-screen;
     margin: 0 auto;
     overflow: scroll;
 
     // Hide scrollbar
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
       display: none;
     }
@@ -52,37 +51,44 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: $color-primary;
+    max-width: 100%;
+    height: 4rem; // Fix for aside positioning in overlay mode
 
     .title {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       margin: 0 1rem;
+      min-width: 0;
 
       a {
         display: contents;
         img {
-          border: 1px rgba(255,255,255,0.5) solid;
+          border: 1px rgba(255, 255, 255, 0.5) solid;
         }
       }
 
       h4 {
         margin-left: 0.25rem;
         padding-left: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
 
   aside {
     grid-area: aside;
+    min-height: 0;
     @media screen and (max-width: $tablet-screen) {
-      margin-bottom: 3.95rem;
+      margin-bottom: 4rem;
       position: absolute;
       top: 0;
       bottom: 0;
       right: 0;
-      display: inherit;
+      display: initial;
     }
   }
 }

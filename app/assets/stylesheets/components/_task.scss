@@ -7,6 +7,10 @@
     font-family: $roboto;
     font-weight: bold;
     text-transform: uppercase;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .task {
@@ -14,22 +18,26 @@
     flex-direction: row;
     justify-content: stretch;
     align-items: stretch;
-    margin-top: 0.5rem;
+    margin: 0.25rem 0;
 
     a {
         text-decoration: none;
     }
 
     .task-content {
+        min-width: 0;
         width: 100%;
         padding: 0.75rem;
         background-color: $color-background-tasks;
         font-family: $roboto;
-        border: 1px solid rgba(0,0,0,0.25);
+        border: 1px solid rgba(0, 0, 0, 0.25);
 
         .duedate {
             font-weight: lighter;
             font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .icons > img {
