@@ -20,11 +20,13 @@ class Task < ApplicationRecord
     joins(:user_tasks).where("user_tasks.status IN ( #{status} )")
   }
   scope :filter_by_fulltext, ->(fulltext) {
-    where(
-      "tasks.name ilike '%#{fulltext}%' OR
-      subjects.name ilike '%#{fulltext}%' OR
-      teams.name ilike '%#{fulltext}%'"
-    )
+    joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = tasks.id  AND record_type = 'Task'")
+      .where(
+        "tasks.name ilike '%#{fulltext}%' OR
+        subjects.name ilike '%#{fulltext}%' OR
+        action_text_rich_texts.body ilike '%#{fulltext}%' OR
+        teams.name ilike '%#{fulltext}%'"
+      )
   }
   scope :filter_by_duedate_min, ->(duedate) {
     duedate = Date.today - 14 if duedate.blank?
