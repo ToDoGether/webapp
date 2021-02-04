@@ -53,8 +53,22 @@ body {
     align-items: center;
     background-color: $color-primary;
 
-    h4 {
+    .title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       margin: 0 1rem;
+
+      a {
+        display: contents;
+      }
+
+      h4 {
+        border-left: 1px $color-white solid;
+        margin-left: 0.25rem;
+        padding-left: 0.5rem;
+      }
     }
   }
 

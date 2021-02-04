@@ -7,7 +7,14 @@
 </script>
 
 <footer>
-  <h4 class="bgblue"><%= @page_title %></h4>
+  <div class="title">
+    <%= link_to tasks_url do%>
+      <%= image_tag("icons/favicon/icon-32x32.png", alt: "ToDoGether") %>
+    <% end %>
+    <h4 class="bgblue">
+      <%= @page_title %>
+    </h4>
+  </div>
   <div id="menu-open" class="menu-icon">
     <%= image_tag("icons/icon-menu.svg", alt: "Menu-Icon", onclick: "toggleMenu()") %>
   </div>
@@ -16,7 +23,7 @@
   </div>
 </footer>
 <script>
-    if(window.innerWidth > 1024) {
-      toggleMenu(); // Initially show menu on bigger screens
-    }
+  if(window.innerWidth > 1024) {
+    toggleMenu(); // Initially show menu on bigger screens
+  }
 </script>
