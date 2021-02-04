@@ -123,5 +123,16 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Fix for mailer
-  config.action_mailer.default_url_options = { host: 'todogether.projects.multimediatechnology.at' }
+  config.action_mailer.default_url_options = { 
+    host: 'todogether.projects.multimediatechnology.at', 
+    protocol: 'https'
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: 'mail-proj.fh-salzburg.ac.at',
+      port: 25,
+      authentication: 'plain',
+      enable_starttls_auto: false
+  }
+
 end
