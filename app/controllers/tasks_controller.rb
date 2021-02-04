@@ -62,6 +62,9 @@ class TasksController < ApplicationController
   # GET /tasks/1 or /tasks/1.json
   def show
     redirect_permission_denied unless current_user.has_task?(@task)
+
+    p '----- TEST OUTPUT - SHOW -----'
+    p @task.attachment
   end
 
   # GET /tasks/new
@@ -80,6 +83,9 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     redirect_permission_denied unless current_user.is_task_admin?(@task)
+
+    p '----- TEST OUTPUT - EDIT -----'
+    p @task.attachment
   end
 
   # GET /filter
@@ -88,6 +94,12 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
+
+    p '----- TEST OUTPUT - CREATE -----'
+    p @task.attachment
+    @task.attachment.attach(params[:attachment])
+    p 'Attachment attached ?'
+    p @task.attachment.attached?
 
     respond_to do |format|
       if @task.save
@@ -108,6 +120,9 @@ class TasksController < ApplicationController
       redirect_permission_denied
       return
     end
+
+    p '----- TEST OUTPUT - CREATE -----'
+    p @task.attachment
 
     respond_to do |format|
       if @task.update(task_params)
@@ -151,11 +166,7 @@ class TasksController < ApplicationController
       :duedate,
       :worktype,
       :description,
-      attachments_attributes: %i[
-        id
-        filename
-        _destroy
-      ],
+      attachment: [],
       weblinks_attributes: %i[
         id
         name

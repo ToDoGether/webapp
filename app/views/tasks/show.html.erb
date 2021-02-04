@@ -40,10 +40,10 @@
 
   <div>
     <h5>Attachments</h5>
-    <% @task.attachments.each do |attachment| %>
+    <% @task.attachment.each do |a| %>
       <div>
-        <%= image_tag("icons/icon-attachment.svg", alt: "Attachment " + attachment.filename) %>
-        <%= link_to attachment.filename, attachment.filename %>
+        <%= image_tag("icons/icon-attachment.svg", alt: "Attachment ") %>
+        <%= link_to a.filename.to_s, url_for(a) %>
       </div>
     <% end %>
   </div>

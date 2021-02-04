@@ -31,14 +31,7 @@
 
     <section class="nesting">
       <h4>Attachments</h4>
-      <%= form.fields_for :attachments do |attachments_form| %>
-        <%= render 'attachment_fields', f: attachments_form %>
-      <% end %>
-
-      <div class="add-nesting">
-        <%= image_tag("icons/icon-add.svg", alt: "add attachment", class: "show-icon") %>
-        <%= link_to_add_association 'Add new attachment', form, :attachments %>
-      </div>
+      <%= form.file_field :attachment, multiple: true %>
     </section>
 
     <section class="nesting">
