@@ -23,7 +23,10 @@ class Task < ApplicationRecord
       teams.name ilike '%#{fulltext}%'"
     )
   }
-  scope :filter_by_duedate_min, ->(duedate) { where('"tasks"."duedate" > ?', "#{duedate}") unless duedate.nil? }
+  scope :filter_by_duedate_min, ->(duedate) {
+    duedate = Date.today - 14 if duedate.blank?
+    where('"tasks"."duedate" > ?', "#{duedate}") unless duedate.nil?
+  }
   scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', "#{duedate}") unless duedate.nil? }
 
   def get_worktype_name
