@@ -53,15 +53,31 @@ body {
     align-items: center;
     background-color: $color-primary;
 
-    h4 {
+    .title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       margin: 0 1rem;
+
+      a {
+        display: contents;
+        img {
+          border: 1px rgba(255,255,255,0.5) solid;
+        }
+      }
+
+      h4 {
+        margin-left: 0.25rem;
+        padding-left: 0.5rem;
+      }
     }
   }
 
   aside {
     grid-area: aside;
     @media screen and (max-width: $tablet-screen) {
-      margin-bottom: 3.5rem;
+      margin-bottom: 3.95rem;
       position: absolute;
       top: 0;
       bottom: 0;

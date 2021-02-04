@@ -53,7 +53,7 @@
     <% @task.weblinks.each do |link| %>
       <div>
         <%= image_tag("icons/icon-weblink.svg", alt: "Weblink to " + link.name) %>
-        <%= link_to link.name, link.url %>
+        <%= link_to link.name, link.url, target: "_blank" %>
       </div>
     <% end %>
   </div>
