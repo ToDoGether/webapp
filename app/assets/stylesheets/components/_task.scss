@@ -25,6 +25,7 @@
         padding: 0.75rem;
         background-color: $color-background-tasks;
         font-family: $roboto;
+        border: 1px solid rgba(0,0,0,0.25);
 
         .duedate {
             font-weight: lighter;
@@ -41,6 +42,19 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+        }
+
+        &.todo {
+            background-color: lighten($color-status-todo, 55);
+        }
+        &.doing {
+            background-color: lighten($color-status-doing, 55);
+        }
+        &.done {
+            background-color: lighten($color-status-done, 55);
+            h4 {
+                text-decoration: line-through;
+            }
         }
     }
 }
