@@ -93,8 +93,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Multimediaprojekt 1 (MMP1) von Bernhard Schmidhuber
-// Studiengang Multimedia Technology (MMT), FH Salzburg
 var cacheName = 'todogether_v1';
 self.addEventListener('install', function (event) {
   console.log("Service Worker: Install");
