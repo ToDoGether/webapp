@@ -14,18 +14,16 @@ body {
   background-color: $color-background;
   display: grid;
   grid-template-areas:
-    "notification aside"
     "main aside"
     "footer footer";
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
 
   @media screen and (max-width: $tablet-screen) {
     grid-template-columns: 1fr 0;
   }
 
-  main,
-  notification {
+  main {
     grid-area: main;
     display: flex;
     flex-direction: column;
