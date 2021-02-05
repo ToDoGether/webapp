@@ -1,5 +1,5 @@
 <%= form_tag 'subscribe', method: "get", id: "form-subscribe" do %>
   <%= label_tag(:team, "Subscribe to a team") %>
-  <%= text_field_tag :team, nil, class: "small-padding" %>
+  <%= text_field_tag :team, nil, placeholder: "Enter team name", class: "small-padding" %>
   <%= submit_tag("Subscribe", class: "btn hoverable block") %>
 <% end %>
