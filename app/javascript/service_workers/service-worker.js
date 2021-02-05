@@ -1,6 +1,3 @@
-// Multimediaprojekt 1 (MMP1) von Bernhard Schmidhuber
-// Studiengang Multimedia Technology (MMT), FH Salzburg
-
 const cacheName = 'todogether_v1';
 
 self.addEventListener('install', event =>
