@@ -1,6 +1,25 @@
-<notification class="notice margin">
-  <p id="notice" class="notification">some text<%= notice %></p>
-</notification>
+<script>
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-full-width",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "0",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+  <% if notice.blank? != true %>
+    toastr.info('<h4><%= notice %></h4>')
+  <% end %>
+</script>
 <main>
   <%= yield %>
 </main>
