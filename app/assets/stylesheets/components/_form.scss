@@ -20,7 +20,7 @@ form,
         font-family: $roboto;
 
         &[type="checkbox"] {
-            width: inherit;
+            width: max-content;
         }
     }
 

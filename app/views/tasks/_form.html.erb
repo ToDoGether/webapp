@@ -16,15 +16,13 @@
     <%= form.text_field :name, placeholder: "Enter task name" %>
 
     <%= form.label :subject_id %>
-    <%= form.select :subject_id, current_user.admin_subjects.collect { |s| [ s.name , s.id ] } %>
+    <%= form.grouped_collection_select(:subject_id, current_user.admin_teams, :subjects, :name, :id, :name) %>
 
     <%= form.label :duedate %>
-    <div class="dateselect">
-      <%= form.date_field :duedate %>
-    </div>
+    <%= form.date_field :duedate %>
 
     <%= form.label :worktype, "Work in groups" %>
-    <%= form.check_box :worktype %>
+      <%= form.check_box :worktype %>
 
     <%= form.label :description %>
     <div class="description-editor">
