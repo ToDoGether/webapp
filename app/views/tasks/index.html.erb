@@ -26,7 +26,7 @@
     </div>
     <% if @user_tasks.size == 0 %>
       <% if !current_user.tasks.filter_by_status(nil).any? %>
-        <div class="margin celebrate">
+        <div class="pad celebrate">
           <p class="emojis">🥳🎉</p>
           <p class="text">Time to celebrate ...</p>
           <p class="emojis">😎🌴</p>
