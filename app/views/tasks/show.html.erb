@@ -12,9 +12,12 @@
     <% end %>
   </h4>
 
+<div>
   <div style="color: <%= @task.subject.color %>" class="subject">
     <%= @task.subject.name %>
   </div>
+  <span>in team <strong><%= @task.subject.team.name %></strong></span>
+</div>
 
   <div>
     <h5>Current status</h5>
