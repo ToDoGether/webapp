@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
         format.html { redirect_to teams_url, notice: 'Team not found.' }
         format.json { render json: 'Team not found.', status: :unprocessable_entity }
       elsif current_user.has_team?(@team)
-        format.html { redirect_to teams_url, notice: 'User is already subscribed.' }
+        format.html { redirect_to @team, notice: 'You are already subscribed.' }
         format.json { render json: 'User is already subscribed.', status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
         fill_user_tasks(@team, current_user)
