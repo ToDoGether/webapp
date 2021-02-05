@@ -1,0 +1,27 @@
+{
+    "name": "ToDoGether",
+    "short_name": "ToDoGether",
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#24A",
+    "background_color": "#eee",
+    "orientation": "any",
+    "description": "ToDoGether is a web application that let's you create tasks in a team.  Collaborating and editing tasks makes it easy to manage them. The unique experience: you as a user keep track of the state on your own.",
+    "icons": [
+        {
+            "src": "icon-64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

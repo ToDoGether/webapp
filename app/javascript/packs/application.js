@@ -17,3 +17,11 @@ require("trix");
 require("@rails/actiontext");
 
 global.toastr = require("toastr");
+
+window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('ServiceWorker registered: ', registration)
+      });
+  });
+  
