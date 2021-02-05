@@ -1,0 +1,13 @@
+@import "../abstracts/_abstracts-dir";
+
+.toast-info {
+    background-color: lighten($color-background-button, 40);
+}
+
+.toast-top-full-width {
+    top: 0.5rem;
+}
+
+#toast-container > div {
+    opacity: 0.9;
+}
