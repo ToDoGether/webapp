@@ -28,19 +28,13 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: $tablet-screen;
-    margin: 0 auto;
-    overflow: scroll;
-
-    // Hide scrollbar
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    align-items: center;
+    overflow-y: scroll;
 
     .pad {
       padding: 1rem;
+      width: calc(100% - 2rem);
+      max-width: $tablet-screen;
     }
   }
 

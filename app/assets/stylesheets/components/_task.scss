@@ -24,6 +24,8 @@
     justify-content: stretch;
     align-items: stretch;
     padding: 0.25rem 0;
+    width: 100%;
+    max-width: $tablet-screen;
 
     a {
         text-decoration: none;
