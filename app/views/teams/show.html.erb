@@ -33,7 +33,10 @@
   <% end %>
 
   <div class="actions">
-    <%= link_to 'Unsubscribe', '/unsubscribe/' + @team.id.to_s, class: "btn hoverable" %>
+    <% if !current_user.is_team_admin?(@team) %>
+      <%= link_to 'Unsubscribe', '/unsubscribe/' + @team.id.to_s, class: "btn hoverable",
+      :data => {:confirm => 'Are you sure? After unsubscribing *ANY* status progress will be lost!'} %>
+    <% end %>
     <%= link_to 'Back', teams_path, class: "btn hoverable" %>
   </div>
 </div>
