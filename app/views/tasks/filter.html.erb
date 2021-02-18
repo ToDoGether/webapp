@@ -2,29 +2,27 @@
 
   <% @page_title = "Filter" %>
 
-  <%= form_with url: tasks_url, method: :get do |f| %>
+  <%= form_with url: filter_apply_path, method: :get do |f| %>
 
     <%= f.label :team, "Selected team" %>
-    <%= f.select :team, current_user.teams.collect { |t| t.name }, selected: session[:team], include_blank: 'All teams' %>
+    <%= f.select :team, current_user.teams.collect { |t| t.name }, { selected: session[:team], include_blank: 'All teams' }, { class: "small-padding" } %>
 
     <%= f.label :subject, "Selected subject" %>
-    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, selected: session[:subject], include_blank: 'All subjects' %>
+    <%= f.select :subject, current_user.subjects.collect { |s| s.name }, { selected: session[:subject], include_blank: 'All subjects'}, { class: "small-padding" } %>
 
     <%= f.label :status, "Selected status" %>
-    <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], selected: session[:status], include_blank: 'Default status (only open)' %>
+    <%= f.select :status, [ [ "TODO" , 1 ] , [ "DOING" , 2 ] , [ "DONE" , 3 ] , [ "All status" , 4 ] ], { selected: session[:status], include_blank: 'Default status (only open)'}, { class: "small-padding" } %>
 
-    <%= f.label :duedate_min, "Due date" %>
+    <%= f.label :duedate_min, "Due date (from / to)" %>
     <div class="filter-duedate">
-      <p>from</p>
-      <%= f.date_field :duedate_min, value: session[:duedate_min] %>
-      <p>to</p>
-      <%= f.date_field :duedate_max, value: session[:duedate_max] %>
+      <%= f.date_field :duedate_min, value: session[:duedate_min], class: "small-padding" %>
+      <%= f.date_field :duedate_max, value: session[:duedate_max], class: "small-padding" %>
     </div>
 
     <%= f.label :fulltext, "Text filter" %>
-    <%= f.text_field :fulltext, value: session[:fulltext] %>
+    <%= f.text_field :fulltext, value: session[:fulltext], placeholder: "Search name, description, ...", class: "small-padding" %>
     <br>
     <%= f.submit "Apply Filter", class: "btn hoverable" %>
-    <%= link_to "Clear Filter", "/filter-reset", class: "btn hoverable" %>
+    <%= link_to "Clear All Filters", filter_reset_path, class: "btn hoverable" %>
   <% end %>
 </div>

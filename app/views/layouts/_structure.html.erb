@@ -5,7 +5,7 @@
     "newestOnTop": false,
     "progressBar": true,
     "positionClass": "toast-top-full-width",
-    "preventDuplicates": false,
+    "preventDuplicates": true,
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
@@ -17,7 +17,7 @@
     "hideMethod": "fadeOut"
   }
     <% if notice.blank? != true %>
-      toastr.info('<h4><%= notice %></h4>')
+      toastr.info('<h5><%= notice %></h5>')
     <% end %>
 </script>
 
