@@ -11,6 +11,7 @@ class TasksController < ApplicationController
     apply_filters
   end
 
+  # GET /filter-reset
   def reset_filter
     session[:subject] = nil
     session[:team] = nil
@@ -18,6 +19,16 @@ class TasksController < ApplicationController
     session[:fulltext] = nil
     session[:duedate_min] = nil
     session[:duedate_max] = nil
+
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /filter-apply
+  def apply_filter
+    session_vars(true) # Force setting session vars
 
     respond_to do |format|
       format.html { redirect_to tasks_url }
@@ -186,11 +197,11 @@ class TasksController < ApplicationController
     end
   end
 
-  def session_vars
-    session[:subject] = params[:subject] unless params[:subject].blank?
-    session[:team] = params[:team] unless params[:team].blank?
-    session[:status] = params[:status] unless params[:status].blank?
-    session[:fulltext] = params[:fulltext] unless params[:fulltext].blank?
+  def session_vars(force = false)
+    session[:subject] = params[:subject] if !params[:subject].blank? || force
+    session[:team] = params[:team] if !params[:team].blank? || force
+    session[:status] = params[:status] if !params[:status].blank? || force
+    session[:fulltext] = params[:fulltext] if !params[:fulltext].blank? || force
     session[:duedate_min] = params[:duedate_min] unless params[:duedate_min].blank?
     session[:duedate_max] = params[:duedate_max] unless params[:duedate_max].blank?
   end

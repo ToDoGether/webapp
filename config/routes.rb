@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
   get '/filter', action: :filter, controller: 'tasks'
   get '/filter-reset', action: :reset_filter, controller: 'tasks'
+  get '/filter-apply', action: :apply_filter, controller: 'tasks'
 
 end
