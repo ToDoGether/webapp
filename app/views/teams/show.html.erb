@@ -9,12 +9,14 @@
     <%= @team.name %>
   </h3>
 
-  <h4>Subjects</h4>
-  <ul>
-    <% @team.subjects.each do |subject| %>
-      <li style="color: <%= subject.color %>"><%= subject.name %></li>
-    <% end %>
-  </ul>
+  <section>
+    <h4>Subjects</h4>
+    <ul>
+      <% @team.subjects.each do |subject| %>
+        <li style="color: <%= subject.color %>"><%= subject.name %></li>
+      <% end %>
+    </ul>
+  </section>
 
   <% if @team.users.count > 0 %>
     <section>
@@ -31,6 +33,17 @@
       </ul>
     </section>
   <% end %>
+
+  <script>
+    function copySubscribeUrl(element) {
+      element.select();
+      document.execCommand("copy");
+      toastr.info("<h5>Link copied to clipboard!</h5>");
+    }
+  </script>
+
+  <h4>Subscribe Link</h4>
+  <%= text_field_tag :team, subscribe_url + '?team=' + @team.name, readonly: true, onClick: 'copySubscribeUrl(this)' %>
 
   <% if !current_user.is_team_admin?(@team) %>
     <%= link_to 'Unsubscribe from \'' + @team.name + '\'', '/unsubscribe/' + @team.id.to_s,
