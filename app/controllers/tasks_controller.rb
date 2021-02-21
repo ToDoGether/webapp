@@ -44,18 +44,28 @@ class TasksController < ApplicationController
     user_task = UserTask.find(user_task_id)
 
     error = false
+    redirect_destination = tasks_url
 
     case direction
     when 'prev'
       user_task.status = user_task.status_prev
     when 'next'
       user_task.status = user_task.status_next
+    when 'todo'
+      user_task.status = 1
+      redirect_destination = user_task.task
+    when 'doing'
+      user_task.status = 2
+      redirect_destination = user_task.task
+    when 'done'
+      user_task.status = 3
+      redirect_destination = user_task.task
     else
       # Wrong direction-parameter
       error = true
     end
 
-    # Ensure User can not change staus
+    # Ensure other users can not change staus
     error = true if user_task.user_id != current_user.id
 
     # Ensure User can not change to status 'nostatus'
@@ -64,9 +74,9 @@ class TasksController < ApplicationController
     respond_to do |format|
       # Save only if no error!
       if !error && user_task.save
-        format.html { redirect_to tasks_url, notice: 'Task status was successfully changed.' }
+        format.html { redirect_to redirect_destination, notice: 'Task status was successfully changed.' }
       else
-        format.html { redirect_to tasks_url, notice: 'Task status change failed.' }
+        format.html { redirect_to redirect_destination, notice: 'Task status change failed.' }
       end
       format.json { head :no_content }
     end

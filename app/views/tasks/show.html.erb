@@ -12,17 +12,21 @@
     <% end %>
   </h4>
 
-<div>
-  <div style="color: <%= @task.subject.color %>" class="subject">
-    <%= @task.subject.name %>
+  <div>
+    <div style="color: <%= @task.subject.color %>" class="subject">
+      <%= @task.subject.name %>
+    </div>
+    <span>in team <strong><%= @task.subject.team.name %></strong></span>
   </div>
-  <span>in team <strong><%= @task.subject.team.name %></strong></span>
-</div>
 
   <div>
     <h5>Current status</h5>
     <% user_task = current_user.user_tasks.find_by(task_id: @task.id) %>
-    <button class="btn status <%= user_task.status_name %>"><%= user_task.status_name %></button>
+    <% status_names = ["todo", "doing", "done"] %>
+    <% status_names.each do |status_name| %>
+      <% inactive = status_name == user_task.status_name ? "" : " inactive" %>
+      <%= link_to '/change_status/' + user_task.id.to_s + "/" + status_name, class: "btn status " + status_name + inactive do status_name end %>
+    <% end %>
   </div>
 
   <div>
