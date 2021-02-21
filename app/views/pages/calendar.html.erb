@@ -1,3 +1,14 @@
-<%= month_calendar do |date| %>
-  <%= date.day %>
-<% end %>
+<div class="pad">
+  <% user_tasks = current_user.open_tasks %>
+  <%# TODO use open_tasks is just a workaround!
+      This would be better solution (should use selected Filter), but is buggy:
+      user_tasks = current_user.tasks.filter_by_status(session[:status]) %>
+  <%= month_calendar do |date| %>
+    <%= date.day %>
+    <% user_tasks.where(duedate: date).each do |day_task| %>
+      <%= link_to day_task do %>
+        <div class="day-task" style="background: <%= day_task.subject.color %>;"></div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
