@@ -44,10 +44,9 @@
   }
 
   &.status {
+    display: inline;
     text-transform: uppercase;
-    $height: 2em;
-    height: $height;
-    border-radius: $height / 2;
+    border-radius: 1em;
     font-family: $roboto;
     font-size: 1rem;
     border: 0;
@@ -90,6 +89,10 @@
   &.nostatus {
     background-color: $color-background;
     pointer-events: none;
+  }
+
+  &.inactive {
+    opacity: 0.25;
   }
 }
 
