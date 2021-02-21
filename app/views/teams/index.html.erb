@@ -2,9 +2,10 @@
 
   <% @page_title = "Teams" %>
 
+<h3>My Teams</h3>
   <table>
     <tbody>
-      <% @teams.each do |team| %>
+      <% @teams.order('name').each do |team| %>
         <tr>
           <td>
             <% if current_user.is_team_admin?(team) %>
