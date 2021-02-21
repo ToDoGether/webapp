@@ -59,3 +59,4 @@ gem 'devise'
 gem 'pg'
 gem 'cocoon'
 gem "simple_calendar"
+gem 'image_processing'
