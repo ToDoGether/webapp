@@ -13,6 +13,9 @@
           <%= link_to "Teams", teams_path, class: "btn hoverable block" %>
         </li>
         <li>
+          <%= link_to "Calendar", calendar_path, class: "btn hoverable block" %>
+        </li>
+        <li>
           <%= link_to "Tasks", tasks_path, class: "btn hoverable block" %>
         </li>
         <% if current_user.admin_teams.any? %>
