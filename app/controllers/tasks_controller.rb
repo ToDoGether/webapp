@@ -42,7 +42,7 @@ class TasksController < ApplicationController
     direction = params[:direction]
 
     user_task = UserTask.find(user_task_id)
-    
+
     error = false
     redirect_destination = tasks_url
 
