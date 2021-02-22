@@ -4,11 +4,11 @@
   <% else %>
     <%= render "searchbar", redirect: tasks_path %>
     <% if @user_tasks.size == 0 %>
-      <% if !current_user.tasks.filter_by_status(nil).any? %>
+      <% if !current_user.user_tasks.filter_by_status(nil).any? %>
         <%= render "celebrate" %>
       <% else %>
         <p>Filter didn't find any entries.</p>
-        <%= link_to "Reset Filter", "/filter-reset", class: "btn hoverable" %>
+        <%= link_to "Reset Filters", "/filter-reset", class: "btn hoverable block" %>
       <% end %>
     <% end %>
   <% end %>
