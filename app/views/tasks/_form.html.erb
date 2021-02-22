@@ -16,7 +16,7 @@
     <%= form.text_field :name, placeholder: "Enter task name" %>
 
     <%= form.label :subject_id %>
-    <%= form.grouped_collection_select(:subject_id, current_user.admin_teams, :subjects, :name, :id, :name) %>
+    <%= form.grouped_collection_select(:subject_id, current_user.admin_teams, :subjects, :name, :id, :name, include_blank: "--- Select Subject ---") %>
 
     <%= form.label :duedate %>
     <%= form.date_field :duedate %>
