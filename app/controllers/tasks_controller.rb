@@ -83,6 +83,7 @@ class TasksController < ApplicationController
   end
 
   def calendar
+    session_vars
     apply_filters
   end
 
@@ -212,6 +213,8 @@ class TasksController < ApplicationController
   end
 
   def session_vars(force = false)
+    force ||= params[:force]
+
     session[:subject] = params[:subject] if !params[:subject].blank? || force
     session[:team] = params[:team] if !params[:team].blank? || force
     session[:status] = params[:status] if !params[:status].blank? || force
@@ -224,14 +227,19 @@ class TasksController < ApplicationController
     # Filtern nach Status nur WENN
     #   1. KEIN anderer Filter ist ODER
     #   2. spezieller Status-Filter ausgewählt wurde (NICHT BLANK bzw. DEFAULT)
-    user_tasks = current_user.user_tasks.filter_by_status(session[:status]) if !isset_any_filter? || !session[:status].blank?
+    user_tasks = if !isset_any_filter? || !session[:status].blank?
+                   current_user.user_tasks.filter_by_status(session[:status])
+                 else
+                   current_user.user_tasks
+                 end
 
-    @tasks = current_user.tasks.where(id: user_tasks.map(&:task_id))
-                               .filter_by_subject(session[:subject])
-                               .filter_by_team(session[:team])
-                               .filter_by_fulltext(session[:fulltext])
-                               .filter_by_duedate_min(session[:duedate_min])
-                               .filter_by_duedate_max(session[:duedate_max])
+    @tasks = current_user.tasks
+                         .where(id: user_tasks.map(&:task_id))
+                         .filter_by_subject(session[:subject])
+                         .filter_by_team(session[:team])
+                         .filter_by_fulltext(session[:fulltext])
+                         .filter_by_duedate_min(session[:duedate_min])
+                         .filter_by_duedate_max(session[:duedate_max])
 
     # Changing order of results
     @user_tasks = filtered_user_tasks(2) +

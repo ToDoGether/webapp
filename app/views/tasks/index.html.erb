@@ -1,38 +1,14 @@
 <div class="pad">
   <% if current_user.teams.size == 0 && current_user.tasks.size == 0 %>
-    <div class="welcome">
-      <p class="title">Welcome! 👋🏼</p>
-      <p class="paragraph">Thank you for using ToDoGether. For getting started you can either create a new team or subscribe to an already existing team.</p>
-      <p class="paragraph">For further information about the application please check out our site on <%= link_to "portfolio.fh-salzburg.ac.at", "https://portfolio.fh-salzburg.ac.at/projects/2021-todogether" %>.</p>
-      <%= render "teams/subscribe" %>
-      <%= label_tag "Create a Team" %>
-      <%= link_to "Create", new_team_path, id: "create-team", class: "btn hoverable block" %>
-    </div>
+    <%= render "welcome" %>
   <% else %>
-    <div id="search-bar">
-      <%= form_tag 'tasks', method: "get", id: "form-subscribe" do %>
-        <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search Tasks ..." %>
-        <div>
-          <%= submit_tag("", class: "btn search") %>
-        </div>
-        <div>
-          <%= link_to "/filter", class: "btn filter" do end %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "searchbar", redirect: tasks_path %>
     <% if @user_tasks.size == 0 %>
       <% if !current_user.tasks.filter_by_status(nil).any? %>
-        <div class="pad celebrate">
-          <p class="emojis">🥳🎉</p>
-          <p class="text">Time to celebrate ...</p>
-          <p class="emojis">😎🌴</p>
-          <p class="text">... or time to relax!</p>
-          <p class="emojis">✅✅✅</p>
-          <p class="text">You're done with all your tasks!</p>
-        </div>
+        <%= render "celebrate" %>
       <% else %>
         <p>Filter didn't find any entries.</p>
-        <%= link_to "Clear Filter", "/filter-reset", class: "btn hoverable" %>
+        <%= link_to "Reset Filter", "/filter-reset", class: "btn hoverable" %>
       <% end %>
     <% end %>
   <% end %>
