@@ -14,11 +14,6 @@ class Task < ApplicationRecord
 
   scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
   scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
-  scope :filter_by_status, ->(status) {
-    status = '1, 2' if status.blank?
-    status = '1, 2, 3' if status == '4'
-    joins(:user_tasks).where("user_tasks.status IN ( #{status} )")
-  }
   scope :filter_by_fulltext, ->(fulltext) {
     joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = tasks.id  AND record_type = 'Task'")
       .where(
