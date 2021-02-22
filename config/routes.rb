@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   get '/filter-reset', action: :reset_filter, controller: 'tasks'
   get '/filter-apply', action: :apply_filter, controller: 'tasks'
 
-  get '/calendar', to: 'pages#calendar'
+  get '/calendar', to: 'tasks#calendar'
 
 end

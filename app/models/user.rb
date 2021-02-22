@@ -21,11 +21,9 @@ class User < ApplicationRecord
 
   # user_tasks
   has_many :user_tasks
-  has_many :open_user_tasks, -> { where("status <= 2") }, class_name: 'UserTask'
 
   # tasks
   has_many :tasks, through: :user_tasks
-  has_many :open_tasks, through: :open_user_tasks, class_name: 'Task', source: :task
 
   def is_team_admin?(team)
     admin_teams.include?(team)

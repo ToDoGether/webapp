@@ -1,0 +1,12 @@
+<div class="pad">
+  <%= render "searchbar", redirect: calendar_path %>
+  <br>
+  <%= month_calendar do |date| %>
+    <%= date.day %>
+    <% @tasks.where(duedate: date).each do |day_task| %>
+      <%= link_to day_task do %>
+        <div class="day-task" style="background: <%= day_task.subject.color %>;"></div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

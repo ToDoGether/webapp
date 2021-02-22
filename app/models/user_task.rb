@@ -2,6 +2,12 @@ class UserTask < ApplicationRecord
   belongs_to :task
   belongs_to :user
 
+  scope :filter_by_status, ->(status) {
+    status = '1, 2' if status.blank?
+    status = '1, 2, 3' if status == '4'
+    where("status IN ( #{status} )")
+  }
+
   def status_prev
     status - 1
   end
