@@ -43,7 +43,8 @@
             <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
           <% end %>
         </div>
-        <div class="duedate"><%= task.formatted_duedate %></div>
+        <% one_day = 24 * 60 * 60 %>
+        <div class="duedate <%= "urgent" if (task.duedate - one_day) < DateTime.now %> <%= "overdue" if task.duedate < DateTime.now %>"><%= task.formatted_duedate %></div>
       </div>
     <% end %>
   </section>
