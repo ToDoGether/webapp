@@ -38,6 +38,6 @@ class Task < ApplicationRecord
   end
 
   def formatted_duedate
-    duedate.strftime("%A, %d.%m.%y")
+    duedate.strftime("%A, %d.%m.%y %H:%M")
   end
 end
