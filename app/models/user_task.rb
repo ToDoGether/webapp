@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class UserTask < ApplicationRecord
   belongs_to :task
   belongs_to :user
 
-  scope :filter_by_status, ->(status) {
+  scope :filter_by_status, lambda { |status|
     status = '1, 2' if status.blank?
     status = '1, 2, 3' if status == '4'
     where("status IN ( #{status} )")
@@ -19,13 +21,13 @@ class UserTask < ApplicationRecord
   def status_name(status_nr = status)
     case status_nr
     when 1
-      "todo"
+      'todo'
     when 2
-      "doing"
+      'doing'
     when 3
-      "done"
+      'done'
     else
-      "nostatus"
+      'nostatus'
     end
   end
 end

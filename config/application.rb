@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,7 +22,6 @@ module Mmp2a
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Adding Fonts folder to assets
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
-
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
   end
 end

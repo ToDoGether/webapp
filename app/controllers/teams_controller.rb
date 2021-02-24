@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[show edit update destroy]
 
@@ -8,9 +10,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
-    unless current_user.has_team?(@team)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.has_team?(@team)
   end
 
   # GET /subscribe
@@ -58,9 +58,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    unless current_user.is_team_admin?(@team)
-      redirect_permission_denied
-    end
+    redirect_permission_denied unless current_user.is_team_admin?(@team)
   end
 
   # POST /teams or /teams.json

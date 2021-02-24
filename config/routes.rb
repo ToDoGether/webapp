@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :teams
   resources :tasks
@@ -18,5 +20,4 @@ Rails.application.routes.draw do
   get '/filter-apply', action: :apply_filter, controller: 'tasks'
 
   get '/calendar', to: 'tasks#calendar'
-
 end
