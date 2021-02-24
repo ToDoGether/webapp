@@ -7,14 +7,17 @@ class Task < ApplicationRecord
 
   has_many_attached :attachments
   has_many :weblinks
-  accepts_nested_attributes_for :weblinks, :allow_destroy => true
+  accepts_nested_attributes_for :weblinks, allow_destroy: true
 
   validates :name, presence: true
   validates :duedate, presence: true
 
   scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
   scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
-  scope :filter_by_fulltext, ->(fulltext) {
+  scope :filter_by_fulltext, lambda { |fulltext|
+    unless fulltext.nil?
+      fulltext.gsub!(/[^A-Za-z0-9\säöüÄÖÜß]/u, '') # remove all characters except german letters
+    end
     joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = tasks.id  AND record_type = 'Task'")
       .where(
         "tasks.name ilike '%#{fulltext}%' OR
@@ -23,14 +26,14 @@ class Task < ApplicationRecord
         teams.name ilike '%#{fulltext}%'"
       )
   }
-  scope :filter_by_duedate_min, ->(duedate) {
+  scope :filter_by_duedate_min, lambda { |duedate|
     duedate = Date.today - 14 if duedate.blank?
-    where('"tasks"."duedate" > ?', "#{duedate}") unless duedate.nil?
+    where('"tasks"."duedate" > ?', duedate.to_s) unless duedate.nil?
   }
-  scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', "#{duedate}") unless duedate.nil? }
+  scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', duedate.to_s) unless duedate.nil? }
 
   def get_worktype_name
-    worktype ? "Together in a group" : "On your own"
+    worktype ? 'Together in a group' : 'On your own'
   end
 
   def is_groupwork
@@ -38,6 +41,6 @@ class Task < ApplicationRecord
   end
 
   def formatted_duedate
-    duedate.strftime("%A, %d.%m.%y %H:%M")
+    duedate.strftime('%A, %d.%m.%y %H:%M')
   end
 end
