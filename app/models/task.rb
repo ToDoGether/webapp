@@ -2,7 +2,10 @@ class Task < ApplicationRecord
   include Filterable
   has_many :user_tasks
   has_many :users, through: :user_tasks
+
   belongs_to :subject
+  delegate :color, :name, :team_name, to: :subject, prefix: true
+
   has_rich_text :description
 
   has_many_attached :attachments
