@@ -5,7 +5,7 @@
     <%= date.day %>
     <% @tasks.where(:duedate => date.beginning_of_day..date.end_of_day).each do |day_task| %>
       <%= link_to day_task do %>
-        <div class="day-task" style="background: <%= day_task.subject.color %>;"></div>
+        <div class="day-task" style="background: <%= day_task.subject_color %>;"></div>
       <% end %>
     <% end %>
   <% end %>

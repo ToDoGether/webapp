@@ -27,7 +27,7 @@
   <section class="task-content <%= status_current %>">
     <%= link_to task do %>
       <div class="top">
-        <div style="color: <%= task.subject.color %>" class="subject"><%= task.subject.name %></div>
+        <div style="color: <%= task.subject_color %>" class="subject"><%= task.subject_name %></div>
         <button class="btn status <%= status_current %>"><%= status_current %></button>
       </div>
       <h4><%= task.name %></h4>
