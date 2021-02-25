@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
-    redirect_permission_denied unless current_user.has_team?(@team)
+    redirect_permission_denied unless current_user.team?(@team)
   end
 
   # GET /subscribe
@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
       if @team.nil?
         format.html { redirect_to teams_url, notice: 'Team not found.' }
         format.json { render json: 'Team not found.', status: :unprocessable_entity }
-      elsif current_user.has_team?(@team)
+      elsif current_user.team?(@team)
         format.html { redirect_to @team, notice: 'You are already subscribed.' }
         format.json { render json: 'User is already subscribed.', status: :unprocessable_entity }
       elsif create_team_user(@team.id, current_user.id, false)
@@ -40,7 +40,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
 
     respond_to do |format|
-      if current_user.has_team?(@team) && remove_team_user(@team.id, current_user.id)
+      if current_user.team?(@team) && remove_team_user(@team.id, current_user.id)
         remove_user_tasks(@team, current_user)
         format.html { redirect_to teams_url, notice: 'Successfully unsubscribed.' }
         format.json { head :no_content }
@@ -58,7 +58,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    redirect_permission_denied unless current_user.is_team_admin?(@team)
+    redirect_permission_denied unless current_user.team_admin?(@team)
   end
 
   # POST /teams or /teams.json
@@ -80,7 +80,7 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
-    unless current_user.is_team_admin?(@team)
+    unless current_user.team_admin?(@team)
       redirect_permission_denied
       return
     end
@@ -98,7 +98,7 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1 or /teams/1.json
   def destroy
-    unless current_user.is_team_admin?(@team)
+    unless current_user.team_admin?(@team)
       redirect_permission_denied
       return
     end

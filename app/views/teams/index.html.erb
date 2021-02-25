@@ -8,7 +8,7 @@
       <% @teams.order('name').each do |team| %>
         <tr>
           <td>
-            <% if current_user.is_team_admin?(team) %>
+            <% if current_user.team_admin?(team) %>
               <%= link_to edit_team_path(team), class: "show-icon" do %>
                 <%= image_tag("icons/icon-edit.svg", alt: "edit team") %>
               <% end %>

@@ -36,7 +36,7 @@
           <% if(task.weblinks.count > 0) %>
             <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
           <% end %>
-          <% if(task.is_groupwork) %>
+          <% if(task.groupwork?) %>
             <%= image_tag("icons/icon-group.svg", alt: "Working in a group") %>
           <% end %>
           <% if(task.attachments.count > 0) %>

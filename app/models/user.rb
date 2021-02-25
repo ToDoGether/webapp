@@ -27,19 +27,19 @@ class User < ApplicationRecord
   # tasks
   has_many :tasks, through: :user_tasks
 
-  def is_team_admin?(team)
+  def team_admin?(team)
     admin_teams.include?(team)
   end
 
-  def is_task_admin?(task)
-    is_team_admin?(task.subject.team)
+  def task_admin?(task)
+    team_admin?(task.subject.team)
   end
 
-  def has_team?(team)
+  def team?(team)
     teams.include?(team)
   end
 
-  def has_task?(task)
-    has_team?(task.subject.team)
+  def task?(task)
+    team?(task.subject.team)
   end
 end
