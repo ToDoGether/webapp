@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :teams
   resources :tasks
@@ -9,14 +11,13 @@ Rails.application.routes.draw do
   #       For example:
   root to: 'tasks#index'
 
-  get '/subscribe', action: :subscribe, controller: 'teams'
-  get '/unsubscribe/:id', action: :unsubscribe, controller: 'teams'
-  get '/change_status/:id/:direction', action: :change_status, controller: 'tasks'
+  get '/subscribe', to: 'teams#subscribe'
+  get '/unsubscribe/:id', to: 'teams#unsubscribe'
+  get '/change_status/:id/:direction', to: 'tasks#change_status'
 
-  get '/filter', action: :filter, controller: 'tasks'
-  get '/filter-reset', action: :reset_filter, controller: 'tasks'
-  get '/filter-apply', action: :apply_filter, controller: 'tasks'
+  get '/filter', to: 'tasks#filter'
+  get '/filter-reset', to: 'tasks#reset_filter'
+  get '/filter-apply', to: 'tasks#apply_filter'
 
   get '/calendar', to: 'tasks#calendar'
-
 end

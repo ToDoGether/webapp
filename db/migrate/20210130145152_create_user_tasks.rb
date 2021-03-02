@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class CreateUserTasks < ActiveRecord::Migration[6.1]
   def change
     create_table :user_tasks do |t|
-
       t.integer :task_id
       t.integer :user_id
 

@@ -3,7 +3,7 @@
   <% @page_title = @team.name + " [Team]" %>
 
   <h3>
-    <% if current_user.is_team_admin?(@team) %>
+    <% if current_user.team_admin?(@team) %>
       <%= link_to edit_team_path(@team) do %><%= image_tag("icons/icon-edit-big.svg", alt: "edit team") %><% end %>
     <% end %>
     <%= @team.name %>
@@ -45,7 +45,7 @@
   <h4>Subscribe Link</h4>
   <%= text_field_tag :team, subscribe_url + '?team=' + @team.name, readonly: true, onClick: 'copySubscribeUrl(this)' %>
 
-  <% if !current_user.is_team_admin?(@team) %>
+  <% if !current_user.team_admin?(@team) %>
     <%= link_to 'Unsubscribe from \'' + @team.name + '\'', '/unsubscribe/' + @team.id.to_s,
       :data => {:confirm => 'Are you sure? After unsubscribing *ANY* status progress will be lost!'} %>
   <% end %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   include Filterable
   has_many :user_tasks
@@ -35,11 +37,11 @@ class Task < ApplicationRecord
   }
   scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', duedate.to_s) unless duedate.nil? }
 
-  def get_worktype_name
+  def worktype_name
     worktype ? 'Together in a group' : 'On your own'
   end
 
-  def is_groupwork
+  def groupwork?
     worktype == true
   end
 
