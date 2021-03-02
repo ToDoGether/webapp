@@ -5,4 +5,6 @@ class Subject < ApplicationRecord
   has_many :tasks
 
   delegate :name, to: :team, prefix: true
+
+  default_scope { order('name') }
 end
