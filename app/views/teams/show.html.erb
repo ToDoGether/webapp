@@ -22,12 +22,12 @@
     <section>
       <h4>Users</h4>
       <ul>
-        <% @team.users.each do |user| %>
+        <% @team.team_users.each do |team_user| %>
           <li>
-            <% if(@team.team_users.find_by(user_id: user.id, team_id: @team.id).is_admin) %>
+            <% if(team_user.is_admin) %>
               <b>ADMIN</b>
             <% end %>
-            <%= user.email %>
+            <%= team_user.email %>
           </li>
         <% end %>
       </ul>
