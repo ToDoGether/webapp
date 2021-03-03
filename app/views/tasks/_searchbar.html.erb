@@ -6,7 +6,7 @@
       <%= submit_tag("", class: "btn search") %>
     </div>
     <div>
-      <%= link_to "/filter", class: "btn filter" do end %>
+      <%= link_to "/filter?redirect=" + redirect, class: "btn filter" do end %>
     </div>
   <% end %>
 </div>

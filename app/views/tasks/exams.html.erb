@@ -2,7 +2,7 @@
   <% if current_user.teams.size == 0 && current_user.tasks.size == 0 %>
     <%= render "welcome" %>
   <% else %>
-    <%= render "searchbar", redirect: tasks_path %>
+    <%= render "searchbar", redirect: exams_path %>
     <% if @exams.size == 0 %>
       <p>There are no exams right now.</p>
     <% end %>

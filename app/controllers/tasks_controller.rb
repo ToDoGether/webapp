@@ -28,10 +28,11 @@ class TasksController < ApplicationController
 
   # GET /filter-apply
   def apply_filter
+    redirect_url = params[:redirect].present? ? params[:redirect] : tasks_url
     session_vars(true) # Force setting session vars
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to redirect_url }
       format.json { head :no_content }
     end
   end
