@@ -24,6 +24,9 @@
     <%= form.label :worktype, "Work in groups" %>
       <%= form.check_box :worktype %>
 
+    <%= form.label :is_exam, "Exam?" %>
+      <%= form.check_box :is_exam %>
+
     <%= form.label :description %>
     <div class="description-editor">
       <%= form.rich_text_area :description %>

@@ -1,6 +1,6 @@
 <div class="pad form">
 
-  <% @page_title = @task.name + " [Task]" %>
+  <% @page_title = @task.name + (@task.is_exam ? " [Exam]" : " [Task]") %>
 
   <h4>
     <% if current_user.task_admin?(@task) %>
@@ -19,25 +19,29 @@
     <span>in team <strong><%= @task.subject_team_name %></strong></span>
   </div>
 
-  <div>
-    <h5>Current status</h5>
-    <% user_task = current_user.user_tasks.find_by(task_id: @task.id) %>
-    <% status_names = ["todo", "doing", "done"] %>
-    <% status_names.each do |status_name| %>
-      <% inactive = status_name == user_task.status_name ? "" : " inactive" %>
-      <%= link_to '/change_status/' + user_task.id.to_s + "/" + status_name, class: "btn status " + status_name + inactive do status_name end %>
-    <% end %>
-  </div>
+  <% if !@task.is_exam %>
+    <div>
+      <h5>Current status</h5>
+      <% user_task = current_user.user_tasks.find_by(task_id: @task.id) %>
+      <% status_names = ["todo", "doing", "done"] %>
+      <% status_names.each do |status_name| %>
+        <% inactive = status_name == user_task.status_name ? "" : " inactive" %>
+        <%= link_to '/change_status/' + user_task.id.to_s + "/" + status_name, class: "btn status " + status_name + inactive do status_name end %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div>
-    <h5>Due Date</h5>
+    <h5><%= @task.is_exam ? "Exam Date" : "Due Date" %></h5>
     <%= @task.formatted_duedate %>
   </div>
 
-  <div>
-    <h5>Type of assignment</h5>
-    <%= @task.worktype_name %>
-  </div>
+  <% if !@task.is_exam %>
+    <div>
+      <h5>Type of assignment</h5>
+      <%= @task.worktype_name %>
+    </div>
+  <% end %>
 
   <div>
     <h5>Description</h5>
