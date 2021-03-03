@@ -1,0 +1,40 @@
+<div class="pad">
+  <% if current_user.teams.size == 0 && current_user.tasks.size == 0 %>
+    <%= render "welcome" %>
+  <% else %>
+    <%= render "searchbar", redirect: tasks_path %>
+    <% if @exams.size == 0 %>
+      <p>There are no exams right now.</p>
+    <% end %>
+  <% end %>
+</div>
+
+<% @page_title = "Exams" %>
+
+<% @exams.each do |task|
+  %>
+<div class="task">
+  <div class="btn slide nostatus"></div>
+  <section class="task-content">
+    <%= link_to task do %>
+      <div class="top">
+        <div style="color: <%= task.subject_color %>" class="subject"><%= task.subject_name %></div>
+      </div>
+      <h4><%= task.name %></h4>
+      <div class="bottom">
+        <div class="icons">
+          <% if(task.weblinks.count > 0) %>
+            <%= image_tag("icons/icon-weblink.svg", alt: "Weblink(s) available") %>
+          <% end %>
+          <% if(task.attachments.count > 0) %>
+            <%= image_tag("icons/icon-attachment.svg", alt: "Attachment(s) available") %>
+          <% end %>
+        </div>
+        <% one_day = 24 * 60 * 60 %>
+        <div class="duedate <%= "urgent" if (task.duedate - one_day) < DateTime.now %> <%= "overdue" if task.duedate < DateTime.now %>"><%= task.formatted_duedate %></div>
+      </div>
+    <% end %>
+  </section>
+  <div class="btn slide nostatus"></div>
+</div>
+<% end %>

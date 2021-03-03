@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   get '/filter-apply', to: 'tasks#apply_filter'
 
   get '/calendar', to: 'tasks#calendar'
+  get '/exams', to: 'tasks#exams'
 end
