@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     session_vars
-    apply_filters
+    calculate_user_tasks
   end
 
   # GET /filter-reset
@@ -28,10 +28,11 @@ class TasksController < ApplicationController
 
   # GET /filter-apply
   def apply_filter
+    redirect_url = params[:redirect].present? ? params[:redirect] : tasks_url
     session_vars(true) # Force setting session vars
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to redirect_url }
       format.json { head :no_content }
     end
   end
@@ -84,7 +85,13 @@ class TasksController < ApplicationController
 
   def calendar
     session_vars
-    apply_filters
+    calculate_user_tasks
+    calculate_exams
+  end
+
+  def exams
+    session_vars
+    calculate_exams
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -178,6 +185,7 @@ class TasksController < ApplicationController
       :subject,
       :duedate,
       :worktype,
+      :is_exam,
       :description,
       attachments: [],
       weblinks_attributes: %i[
@@ -223,7 +231,13 @@ class TasksController < ApplicationController
     session[:duedate_max] = params[:duedate_max] unless params[:duedate_max].blank?
   end
 
-  def apply_filters
+  def calculate_exams
+    @exams = apply_task_filters(
+      current_user.tasks.where(is_exam: true)
+    )
+  end
+
+  def calculate_user_tasks
     # Filtern nach Status nur WENN
     #   1. KEIN Fulltext-Filter ist ODER
     #   2. spezieller Status-Filter ausgewählt wurde
@@ -233,18 +247,23 @@ class TasksController < ApplicationController
                    current_user.user_tasks
                  end
 
-    @tasks = current_user.tasks
-                         .where(id: user_tasks.map(&:task_id))
-                         .filter_by_subject(session[:subject])
-                         .filter_by_team(session[:team])
-                         .filter_by_fulltext(session[:fulltext])
-                         .filter_by_duedate_min(session[:duedate_min])
-                         .filter_by_duedate_max(session[:duedate_max])
+    @tasks = apply_task_filters(
+      current_user.tasks.where(id: user_tasks.map(&:task_id), is_exam: false)
+    )
 
     # Changing order of results
     @user_tasks = filtered_user_tasks(2) +
                   filtered_user_tasks(1) +
                   filtered_user_tasks(3)
+  end
+
+  def apply_task_filters(tasks)
+    tasks
+      .filter_by_subject(session[:subject])
+      .filter_by_team(session[:team])
+      .filter_by_fulltext(session[:fulltext])
+      .filter_by_duedate_min(session[:duedate_min])
+      .filter_by_duedate_max(session[:duedate_max])
   end
 
   def filtered_user_tasks(status)

@@ -1,19 +1,24 @@
 <div id="menu" class="hide">
-  <%= link_to tasks_path, class: "side-top" do %>
-    <%= image_tag("icons/favicon/icon-128x128.png", alt: "ToDoGether") %>
-    <h1 class="bgblue">ToDoGether</h1>
-  <% end %>
+  <div class="side-top">
+    <%= link_to tasks_path do %>
+      <%= image_tag("icons/favicon/icon-128x128.png", alt: "ToDoGether") %>
+      <h1 class="bgblue">ToDoGether</h1>
+    <% end %>
+    <% if user_signed_in? %>
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+    <% end %>
+  </div>
   <nav>
     <ul>
       <% if user_signed_in? %>
-        <li>
-          <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "btn hoverable block" %>
-        </li>
         <li>
           <%= link_to "Teams", teams_path, class: "btn hoverable block" %>
         </li>
         <li>
           <%= link_to "Calendar", calendar_path, class: "btn hoverable block" %>
+        </li>
+        <li>
+          <%= link_to "Exams", exams_path, class: "btn hoverable block" %>
         </li>
         <li>
           <%= link_to "Tasks", tasks_path, class: "btn hoverable block" %>

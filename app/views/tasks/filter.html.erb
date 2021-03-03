@@ -4,6 +4,8 @@
 
   <%= form_with url: filter_apply_path, method: :get do |f| %>
 
+    <%= f.hidden_field "redirect", value: params[:redirect] %>
+
     <%= f.label :team, "Selected team" %>
     <%= f.select :team, current_user.teams.collect { |t| t.name }, { selected: session[:team], include_blank: 'All teams' }, { class: "small-padding" } %>
 

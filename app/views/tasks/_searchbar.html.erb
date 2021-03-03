@@ -1,12 +1,12 @@
 <div id="search-bar">
   <%= form_tag redirect, method: "get", id: "form-subscribe" do %>
     <%= hidden_field_tag "force", true %> <!-- force setting session filter even if text-field is empty -->
-    <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search Tasks ..." %>
+    <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search ..." %>
     <div>
       <%= submit_tag("", class: "btn search") %>
     </div>
     <div>
-      <%= link_to "/filter", class: "btn filter" do end %>
+      <%= link_to "/filter?redirect=" + redirect, class: "btn filter" do end %>
     </div>
   <% end %>
 </div>

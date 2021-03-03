@@ -20,11 +20,17 @@
         min-height: 0;
         margin: 2rem;
         text-align: center;
-        text-decoration: none;
-        overflow: clip;
+        overflow: auto;
+
+        a {
+            &:first-child {
+                text-decoration: none;
+            }
+            color: $color-white;
+        }
 
         img {
-            border: 1px rgba(255,255,255,0.5) solid;
+            border: 1px rgba(255, 255, 255, 0.5) solid;
         }
     }
 
