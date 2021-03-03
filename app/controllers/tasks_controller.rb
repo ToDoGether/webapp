@@ -231,8 +231,9 @@ class TasksController < ApplicationController
   end
 
   def calculate_exams
-    @exams = current_user.tasks.where(is_exam: :true)
-    @exams = apply_task_filters(@exams)
+    @exams = apply_task_filters(
+      current_user.tasks.where(is_exam: true)
+    )
   end
 
   def calculate_user_tasks
@@ -245,8 +246,9 @@ class TasksController < ApplicationController
                    current_user.user_tasks
                  end
 
-    @tasks = current_user.tasks.where(id: user_tasks.map(&:task_id), is_exam: :false)
-    @tasks = apply_task_filters(@tasks)
+    @tasks = apply_task_filters(
+      current_user.tasks.where(id: user_tasks.map(&:task_id), is_exam: false)
+    )
 
     # Changing order of results
     @user_tasks = filtered_user_tasks(2) +
