@@ -9,4 +9,6 @@ class Team < ApplicationRecord
 
   validates :name, uniqueness: true, presence: true,
                    format: { with: /\A[a-zA-Z0-9_-]+\z/, message: 'only allows letters and numbers' }
+
+  default_scope { order('name') }
 end

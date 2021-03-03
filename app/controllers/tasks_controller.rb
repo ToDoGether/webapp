@@ -225,9 +225,9 @@ class TasksController < ApplicationController
 
   def apply_filters
     # Filtern nach Status nur WENN
-    #   1. KEIN anderer Filter ist ODER
-    #   2. spezieller Status-Filter ausgewählt wurde (NICHT BLANK bzw. DEFAULT)
-    user_tasks = if !isset_any_filter? || !session[:status].blank?
+    #   1. KEIN Fulltext-Filter ist ODER
+    #   2. spezieller Status-Filter ausgewählt wurde
+    user_tasks = if session[:fulltext].blank? || session[:status].present?
                    current_user.user_tasks.filter_by_status(session[:status])
                  else
                    current_user.user_tasks
@@ -249,15 +249,5 @@ class TasksController < ApplicationController
 
   def filtered_user_tasks(status)
     current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
-  end
-
-  def isset_any_filter?
-    if !session[:subject].blank? ||
-       !session[:team].blank? ||
-       !session[:fulltext].blank?
-      true
-    else
-      false
-    end
   end
 end

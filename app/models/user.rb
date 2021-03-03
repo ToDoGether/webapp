@@ -18,14 +18,15 @@ class User < ApplicationRecord
            source: :team
 
   # subjects
-  has_many :subjects, -> { order(:name).distinct }, through: :teams
-  has_many :admin_subjects, -> { order(:name).distinct }, through: :admin_teams, source: :subjects
+  has_many :subjects, through: :teams
 
   # user_tasks
   has_many :user_tasks
 
   # tasks
   has_many :tasks, through: :user_tasks
+
+  default_scope { order('email') }
 
   def team_admin?(team)
     admin_teams.include?(team)
