@@ -8,5 +8,10 @@
         <div class="day-task" style="background: <%= day_task.subject_color %>;"></div>
       <% end %>
     <% end %>
+    <% @exams.where(:duedate => date.beginning_of_day..date.end_of_day).each do |day_exam| %>
+      <%= link_to day_exam do %>
+        <div class="day-task exam" style="border-color: <%= day_exam.subject_color %>;"></div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
