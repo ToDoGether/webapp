@@ -233,7 +233,7 @@ class TasksController < ApplicationController
 
   def calculate_exams
     @exams = apply_task_filters(
-      current_user.tasks.where(is_exam: true)
+      current_user.tasks.where(is_exam: true).order(:duedate)
     )
   end
 
