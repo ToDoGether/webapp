@@ -25,11 +25,13 @@ body {
 
   main {
     grid-area: main;
-    display: flex;
-    flex-direction: column;
+    display: block;
     width: 100%;
-    align-items: center;
     overflow-y: scroll;
+
+    > * {
+      margin: 0 auto;
+    }
 
     .pad {
       padding: 1rem;
