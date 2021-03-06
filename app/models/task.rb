@@ -17,8 +17,8 @@ class Task < ApplicationRecord
   validates :name, presence: true
   validates :duedate, presence: true
 
-  scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "#{subject}") }
-  scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "#{team}") }
+  scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
+  scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
   scope :filter_by_fulltext, lambda { |fulltext|
     unless fulltext.nil?
       fulltext.gsub!(/[^A-Za-z0-9\säöüÄÖÜß]/u, '') # remove all characters except german letters
