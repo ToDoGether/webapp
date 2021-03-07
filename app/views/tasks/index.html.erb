@@ -8,7 +8,7 @@
         <%= render "celebrate" %>
       <% else %>
         <p>Filter didn't find any entries.</p>
-        <%= link_to "Reset Filters", "/filter-reset", class: "btn hoverable block" %>
+        <%= link_to "Reset Filters", "/filter-reset?redirect=" + tasks_path, class: "btn hoverable block" %>
       <% end %>
     <% end %>
   <% end %>

@@ -5,6 +5,7 @@
     <%= render "searchbar", redirect: exams_path %>
     <% if @exams.size == 0 %>
       <p>There are no exams right now.</p>
+      <%= link_to "Reset Filters", "/filter-reset?redirect=" + exams_path, class: "btn hoverable block" %>
     <% end %>
   <% end %>
 </div>

@@ -13,6 +13,7 @@ class TasksController < ApplicationController
 
   # GET /filter-reset
   def reset_filter
+    redirect_url = params[:redirect].present? ? params[:redirect] : tasks_url
     session[:subject] = nil
     session[:team] = nil
     session[:status] = nil
@@ -21,7 +22,7 @@ class TasksController < ApplicationController
     session[:duedate_max] = nil
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to redirect_url }
       format.json { head :no_content }
     end
   end
