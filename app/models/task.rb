@@ -17,12 +17,19 @@ class Task < ApplicationRecord
   validates :name, presence: true
   validates :duedate, presence: true
 
-  scope :filter_by_subject, ->(subject) { joins(:subject).where('"subjects"."name" ilike ?', "%#{subject}%") }
-  scope :filter_by_team, ->(team) { joins(subject: :team).where('"teams"."name" ilike ?', "%#{team}%") }
+  scope :filter_by_subject, lambda { |subject|
+                              subject = '%' if subject.blank?
+                              joins(:subject).where('subjects.name ilike ?', subject.to_s)
+                            }
+
+  scope :filter_by_team, lambda { |team|
+                           team = '%' if team.blank?
+                           joins(subject: :team).where('teams.name ilike ?', team.to_s)
+                         }
+
   scope :filter_by_fulltext, lambda { |fulltext|
-    unless fulltext.nil?
-      fulltext.gsub!(/[^A-Za-z0-9\säöüÄÖÜß]/u, '') # remove all characters except german letters
-    end
+    fulltext.gsub!(/[^A-Za-z0-9\säöüÄÖÜß]/u, '') unless fulltext.blank? # remove all characters except german letters
+
     joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = tasks.id  AND record_type = 'Task'")
       .where(
         "tasks.name ilike '%#{fulltext}%' OR
@@ -33,7 +40,7 @@ class Task < ApplicationRecord
   }
   scope :filter_by_duedate_min, lambda { |duedate|
     duedate = Date.today - 14 if duedate.blank?
-    where('"tasks"."duedate" > ?', duedate.to_s) unless duedate.nil?
+    where('"tasks"."duedate" > ?', duedate.to_s)
   }
   scope :filter_by_duedate_max, ->(duedate) { where('"tasks"."duedate" < ?', duedate.to_s) unless duedate.nil? }
 
