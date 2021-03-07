@@ -1,7 +1,8 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the ActionText (trix) component.
 // -----------------------------------------------------------------------------
-@import "../abstracts/_abstracts-dir";
+@import "../abstracts/fonts";
+@import "../abstracts/variables";
 
 .description-editor {
   background-color: $color-white;
