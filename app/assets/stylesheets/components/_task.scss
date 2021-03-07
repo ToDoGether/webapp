@@ -1,7 +1,8 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the task component.
 // -----------------------------------------------------------------------------
-@import "../abstracts/_abstracts-dir";
+@import "../abstracts/fonts";
+@import "../abstracts/variables";
 
 .subject {
     font-family: $roboto;

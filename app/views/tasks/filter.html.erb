@@ -25,6 +25,6 @@
     <%= f.text_field :fulltext, value: session[:fulltext], placeholder: "Search name, description, ...", class: "small-padding" %>
     <br>
     <%= f.submit "Apply Filter", class: "btn hoverable" %>
-    <%= link_to "Reset Filters", filter_reset_path, class: "btn hoverable" %>
+    <%= link_to "Reset Filters", "/filter-reset?redirect=" + params[:redirect], class: "btn hoverable" %>
   <% end %>
 </div>

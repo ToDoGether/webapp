@@ -1,4 +1,5 @@
-@import "../abstracts/_abstracts-dir";
+@import "../abstracts/fonts";
+@import "../abstracts/variables";
 
 .toast-info {
     background-color: lighten($color-background-button, 40);

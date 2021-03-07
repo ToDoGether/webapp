@@ -1,12 +1,61 @@
 <div id="search-bar">
-  <%= form_tag redirect, method: "get", id: "form-subscribe" do %>
-    <%= hidden_field_tag "force", true %> <!-- force setting session filter even if text-field is empty -->
-    <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search ..." %>
+  <div>
+    <%= form_tag redirect, method: "get", id: "form-subscribe" do %>
+      <%= hidden_field_tag "force", true %> <!-- force setting session filter even if text-field is empty -->
+      <%= text_field_tag :fulltext, session[:fulltext], class: "small-padding", placeholder: "Search ..." %>
+      <div>
+        <%= submit_tag("", class: "btn search") %>
+      </div>
+      <div>
+        <%= link_to "/filter?redirect=" + redirect, class: "btn filter" do end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%
+  def status_name(status)
+    case status.to_i
+    when 1
+      'TODO'
+    when 2
+      'DOING'
+    when 3
+      'DONE'
+    when 4
+      'All status'
+    else
+      status
+    end
+  end
+  %>
+
+  <%
+  if session[:subject].present? ||
+     session[:team].present? ||
+     session[:status].present? ||
+     session[:fulltext].present? ||
+     session[:duedate_min].present? ||
+     session[:duedate_max].present?
+     %>
+  <div id="active-filters">
     <div>
-      <%= submit_tag("", class: "btn search") %>
+      <%= image_tag("icons/icon-filter.svg", alt: "Active Filters") %>
+      <section>
+        <% def show_filter(type, content) %>
+          <div class="filter-tag"><strong><%= type %></strong>: <%= content %></div>
+        <% end %>
+        <%
+        show_filter("Text", session[:fulltext]) if session[:fulltext].present?
+        show_filter("Team", session[:team]) if session[:team].present?
+        show_filter("Subject", session[:subject]) if session[:subject].present?
+        show_filter("Status", status_name(session[:status])) if session[:status].present?
+        show_filter("Date from", session[:duedate_min]) if session[:duedate_min].present?
+        show_filter("Date to", session[:duedate_max]) if session[:duedate_max].present?
+        %>
+      </section>
     </div>
-    <div>
-      <%= link_to "/filter?redirect=" + redirect, class: "btn filter" do end %>
-    </div>
-  <% end %>
+    <%= link_to "/filter-reset?redirect=" + redirect, class: "btn filter reset" do end %>
+  </div>
+<% end %>
+
 </div>

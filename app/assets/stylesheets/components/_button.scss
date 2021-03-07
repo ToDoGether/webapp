@@ -1,7 +1,8 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
-@import "../abstracts/_abstracts-dir";
+@import "../abstracts/fonts";
+@import "../abstracts/variables";
 
 .btn {
   position: relative;
@@ -15,7 +16,7 @@
   color: white;
   line-height: 1;
   font-size: 1.5rem;
-  
+
   @media screen and (max-width: $mobile-screen) {
     font-size: 1.3rem;
   }
@@ -98,44 +99,4 @@
 
 a.btn.block {
   width: auto;
-}
-
-#search-bar {
-  margin-bottom: -0.5rem;
-  form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    input {
-      border-radius: 1.5rem;
-      border: 1px solid rgba(0, 0, 0, 0.25);
-      width: 100%;
-      padding-left: 1rem;
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-    }
-
-    .btn {
-      width: 2.5rem;
-      height: 2.5rem;
-      border: 0;
-      border-radius: 100%;
-      padding: 0;
-      margin-left: 1rem;
-      background-size: auto;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-
-      &.filter {
-        background-image: image-url("icons/icon-filter.svg");
-        background-color: $color-white;
-        border:1px solid $color-background-button;
-      }
-      &.search {
-        background-image: image-url("icons/icon-search.svg");
-      }
-    }
-  }
 }
