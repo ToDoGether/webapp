@@ -268,6 +268,11 @@ class TasksController < ApplicationController
   end
 
   def filtered_user_tasks(status)
-    current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id)).includes(:task).order('tasks.duedate')
+    filtered = current_user.user_tasks.where(status: status, task_id: @tasks.map(&:id))
+    if(status == 3)
+      filtered.order(updated_at: :desc) # Order DONE tasks so that last changed are on top
+    else
+      filtered.includes(:task).order('tasks.duedate')
+    end
   end
 end
