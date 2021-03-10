@@ -13,6 +13,7 @@ class Task < ApplicationRecord
   has_many_attached :attachments
   has_many :weblinks
   accepts_nested_attributes_for :weblinks, allow_destroy: true
+  accepts_nested_attributes_for :user_tasks
 
   validates :name, presence: true
   validates :duedate, presence: true
