@@ -11,11 +11,6 @@ class TasksController < ApplicationController
     calculate_user_tasks
   end
 
-  # GET /task-notes/:id
-  def task_notes
-    @task = Task.find(params[:id])
-  end
-
   # GET /filter-reset
   def reset_filter
     redirect_url = params[:redirect].present? ? params[:redirect] : tasks_url
@@ -199,10 +194,6 @@ class TasksController < ApplicationController
         name
         url
         _destroy
-      ],
-      user_tasks_attributes: %i[
-        id
-        personal_note
       ]
     )
   end

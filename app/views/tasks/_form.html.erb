@@ -49,15 +49,6 @@
       </div>
     </section>
 
-    <section class="nesting">
-      <h4>Personal notes</h4>
-      <%= form.fields_for :user_tasks do |f| %>
-      <div class="description-editor">
-        <%= f.rich_text_area :personal_note %>
-      </div>
-      <% end %>
-    </section>
-
     <div class="actions">
       <%= form.submit class: "btn hoverable" %>
       <%= link_to 'Cancel', task ? task : tasks_path, class: "btn hoverable" %>
