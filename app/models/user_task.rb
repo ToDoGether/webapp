@@ -3,7 +3,6 @@
 class UserTask < ApplicationRecord
   belongs_to :task
   belongs_to :user
-  has_rich_text :personal_note
 
   scope :filter_by_status, lambda { |status|
     status = '1, 2' if status.blank?

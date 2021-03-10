@@ -21,5 +21,4 @@ Rails.application.routes.draw do
 
   get '/calendar', to: 'tasks#calendar'
   get '/exams', to: 'tasks#exams'
-  get '/task-notes/:id', to: 'tasks#task_notes'
 end
