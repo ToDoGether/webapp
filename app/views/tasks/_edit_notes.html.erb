@@ -1,6 +1,6 @@
 <div>
   <h5>Personal notes</h5>
-  <%= form.fields_for :user_tasks do |f| %>
+  <%= form.fields_for @user_task do |f| %>
   <div class="description-editor">
     <%= f.rich_text_area :personal_note %>
   </div>

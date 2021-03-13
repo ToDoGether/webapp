@@ -14,6 +14,13 @@ class TasksController < ApplicationController
   # GET /task-notes/:id
   def task_notes
     @task = Task.find(params[:id])
+    @user_task = UserTask.concrete_user_task(current_user.id, @task.id)
+  end
+
+  # GET /tasks/1 or /tasks/1.json
+  def show
+    redirect_permission_denied unless current_user.task?(@task)
+    @user_task = UserTask.concrete_user_task(current_user.id, @task.id)
   end
 
   # GET /filter-reset
@@ -100,11 +107,6 @@ class TasksController < ApplicationController
     calculate_exams
   end
 
-  # GET /tasks/1 or /tasks/1.json
-  def show
-    redirect_permission_denied unless current_user.task?(@task)
-  end
-
   # GET /tasks/new
   def new
     unless current_user.admin_teams.any?
@@ -121,6 +123,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     redirect_permission_denied unless current_user.task_admin?(@task)
+    @user_task = UserTask.concrete_user_task(current_user.id, @task.id)
   end
 
   # GET /filter

@@ -51,7 +51,7 @@
 
     <section class="nesting">
       <h4>Personal notes</h4>
-      <%= form.fields_for :user_tasks do |f| %>
+      <%= form.fields_for @user_task do |f| %>
       <div class="description-editor">
         <%= f.rich_text_area :personal_note %>
       </div>

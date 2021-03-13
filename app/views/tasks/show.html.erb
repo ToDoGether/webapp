@@ -72,7 +72,7 @@
 
   <div>
     <h5>Personal notes</h5>
-    <%= @task.user_tasks.where(user_id: @current_user.id).first.personal_note %>
+    <%= @user_task.personal_note %>
   </div>
 
   <%= link_to 'Back', @task.is_exam ? exams_path : tasks_path, class: "btn hoverable" %>

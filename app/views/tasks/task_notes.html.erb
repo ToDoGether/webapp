@@ -70,7 +70,7 @@
       <% end %>
     </div>
 
-    <%= render partial: "edit_notes", locals: {form: form} %>
+    <%= render partial: "edit_notes", locals: {form: form, user_task: @user_task} %>
 
     <div class="actions">
       <%= form.submit class: "btn hoverable" %>

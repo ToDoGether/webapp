@@ -31,4 +31,8 @@ class UserTask < ApplicationRecord
       'nostatus'
     end
   end
+
+  def self.concrete_user_task(uid, tid)
+    UserTask.all.where(user_id: uid).where(task_id: tid).first
+  end
 end
