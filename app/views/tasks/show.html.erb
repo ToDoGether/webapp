@@ -48,25 +48,29 @@
     <%= @task.description %>
   </div>
 
-  <div>
-    <h5>Attachments</h5>
-    <% @task.attachments.each do |attachment| %>
-      <div>
-        <%= image_tag("icons/icon-attachment.svg", alt: "Attachment " + attachment.filename.to_s) %>
-        <%= link_to attachment.filename.to_s, url_for(attachment), target: "_blank" %>
-      </div>
-    <% end %>
-  </div>
+  <% if(@task.attachments.any?) %>
+    <div>
+      <h5>Attachments</h5>
+      <% @task.attachments.each do |attachment| %>
+        <div>
+          <%= image_tag("icons/icon-attachment.svg", alt: "Attachment " + attachment.filename.to_s) %>
+          <%= link_to attachment.filename.to_s, url_for(attachment), target: "_blank" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div>
-    <h5>Weblinks</h5>
-    <% @task.weblinks.each do |link| %>
-      <div>
-        <%= image_tag("icons/icon-weblink.svg", alt: "Weblink to " + link.name) %>
-        <%= link_to link.name, link.url, target: "_blank" %>
-      </div>
-    <% end %>
-  </div>
+  <% if(@task.weblinks.any?) %>
+    <div>
+      <h5>Links</h5>
+      <% @task.weblinks.each do |link| %>
+        <div>
+          <%= image_tag("icons/icon-weblink.svg", alt: "Weblink to " + link.name) %>
+          <%= link_to link.name, link.url, target: "_blank" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <%= link_to 'Back', @task.is_exam ? exams_path : tasks_path, class: "btn hoverable" %>
 </div>
